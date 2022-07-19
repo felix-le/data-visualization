@@ -10,11 +10,6 @@ const useStyle = makeStyles((theme) => ({
 }));
 function TablePages() {
   const classes = useStyle();
-  console.log(
-    '🚀 ~ file: TablePage.js ~ line 13 ~ TablePages ~ classes',
-    classes
-  );
-
   return <h1 className={classes.h1}>Dashboard</h1>;
 }
 
