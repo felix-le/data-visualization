@@ -28,25 +28,12 @@ const IconWrapperStyle = styled('div')(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-AnalyticsWidgetSummary.propTypes = {
-  color: PropTypes.oneOf([
-    'primary',
-    'secondary',
-    'info',
-    'success',
-    'warning',
-    'error',
-  ]),
-  icon: PropTypes.string,
-  title: PropTypes.string,
-  total: PropTypes.number,
-};
-
 export default function AnalyticsWidgetSummary({
   title,
   total,
   icon,
   color = 'primary',
+  isCompare,
 }) {
   return (
     <RootStyle
@@ -67,7 +54,9 @@ export default function AnalyticsWidgetSummary({
       >
         <Iconify icon={icon} width={24} height={24} />
       </IconWrapperStyle>
-      <Typography variant='h3'>{fShortenNumber(total)}</Typography>
+      <Typography variant='h3'>
+        {isCompare ? total : fShortenNumber(total)}
+      </Typography>
       <Typography variant='subtitle2' sx={{ opacity: 0.72 }}>
         {title}
       </Typography>

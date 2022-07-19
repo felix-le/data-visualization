@@ -1,4 +1,5 @@
-import { chain, maxBy } from 'lodash';
+import { maxBy } from 'lodash';
+
 function getTotalDailyEvents(eventDaily) {
   return eventDaily.reduce((accumulator, object) => {
     return accumulator + object?.events;
@@ -17,4 +18,5 @@ function getTotalDaysWithMinValues(eventDaily, MINEVENTSPERDAY) {
     return accumulator;
   }, 0);
 }
+
 export { getTotalDailyEvents, getMaxEventsDaily, getTotalDaysWithMinValues };

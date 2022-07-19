@@ -1,5 +1,8 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useState, useMemo } from 'react';
 import EventModule from './EventModule';
+import dayjs from 'dayjs';
+import { maxDate, minDate, dateComparingFormat } from '../constants';
+
 import {
   getTotalDailyEvents,
   getMaxEventsDaily,
@@ -16,20 +19,71 @@ export const EventContext = createContext({
   hourWithMaxEvents: {},
   MINEVENTSPERDAY: 0,
   setIsComperingMulDays: () => {},
+  startFirstDate: '',
+  setStartFirstDate: () => {},
+  isCompare: false,
+  setIsCompare: () => {},
+  totalEventsComparing: 0,
+  maxEventsComparing: {},
+  totalDaysWithMinValuesComparing: 0,
+  hourWithMaxEventsComparing: {},
 });
 
 const MINEVENTSPERDAY = 15;
 
-const EventWithContext = ({ eventDaily, eventHourly }) => {
-  const [isComperingMultiDays, setIsComperingMultiDays] = useState(false);
+function getEventDailyPeriod(eventDaily, startDate, endDate) {
+  const _startDate = dateComparingFormat(startDate);
+  const _endDate = dateComparingFormat(endDate);
+  const _eventDaily = eventDaily.filter((event) => {
+    const _eventDate = dateComparingFormat(event.date);
 
-  const totalEvents = getTotalDailyEvents(eventDaily);
+    return _eventDate >= _startDate && _eventDate <= _endDate;
+  });
+  return _eventDaily;
+}
+
+const EventWithContext = ({ eventDaily, eventHourly }) => {
+  const [startFirstDate, setStartFirstDate] = useState({
+    firstStart: minDate,
+    firstEnd: maxDate,
+  });
+
+  const [startComparedDate, setStartComparedDate] = useState({
+    secondStart: startFirstDate.firstEnd,
+    secondEnd: maxDate,
+  });
+
+  const [isCompare, setIsCompare] = useState(false);
+
+  const periodFirstData = getEventDailyPeriod(
+    eventDaily,
+    startFirstDate.firstStart,
+    startFirstDate.firstEnd
+  );
+
+  const periodSecondComparingData = getEventDailyPeriod(
+    eventDaily,
+    startComparedDate.secondStart,
+    startComparedDate.secondEnd
+  );
+  const totalEventsComparing = getTotalDailyEvents(periodSecondComparingData);
+  const maxEventsComparing = getMaxEventsDaily(periodSecondComparingData);
+  const totalDaysWithMinValuesComparing = getTotalDaysWithMinValues(
+    periodSecondComparingData
+  );
+  const hourWithMaxEventsComparing = getHourWithMaxEvents(
+    periodSecondComparingData
+  );
+
+  const finalDisplayEventDaily = periodFirstData;
+
+  const totalEvents = getTotalDailyEvents(finalDisplayEventDaily);
   // get the day has the most events
-  const maxEvents = getMaxEventsDaily(eventDaily);
+  const maxEvents = getMaxEventsDaily(finalDisplayEventDaily);
 
   // get the number days that have events < Min
   const totalDaysWithMinValues = getTotalDaysWithMinValues(
-    eventDaily,
+    finalDisplayEventDaily,
     MINEVENTSPERDAY
   );
 
@@ -43,8 +97,19 @@ const EventWithContext = ({ eventDaily, eventHourly }) => {
     maxEvents,
     totalDaysWithMinValues,
     hourWithMaxEvents,
-    isComperingMultiDays,
-    setIsComperingMultiDays,
+    startFirstDate,
+    setStartFirstDate,
+    startFirstDate,
+    setStartFirstDate,
+    setIsCompare,
+    isCompare,
+    startComparedDate,
+    setStartComparedDate,
+    // compare data
+    totalEventsComparing,
+    maxEventsComparing,
+    totalDaysWithMinValuesComparing,
+    hourWithMaxEventsComparing,
   };
 
   return (
