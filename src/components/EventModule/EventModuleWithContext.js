@@ -1,6 +1,12 @@
 import React, { createContext, useState } from 'react';
-import { chain, maxBy } from 'lodash';
 import EventModule from './EventModule';
+import {
+  getTotalDailyEvents,
+  getMaxEventsDaily,
+  getTotalDaysWithMinValues,
+} from './utils/getEventDaily';
+
+import { getHourWithMaxEvents } from './utils/getEventHour';
 
 export const EventContext = createContext({
   isComperingMultiDays: false,
@@ -14,47 +20,21 @@ export const EventContext = createContext({
 
 const MINEVENTSPERDAY = 15;
 
-// compare here
 const EventWithContext = ({ eventDaily, eventHourly }) => {
   const [isComperingMultiDays, setIsComperingMultiDays] = useState(false);
 
-  const totalEvents = eventDaily.reduce((accumulator, object) => {
-    return accumulator + object?.events;
-  }, 0);
-
+  const totalEvents = getTotalDailyEvents(eventDaily);
   // get the day has the most events
-  const maxEvents = maxBy(eventDaily, 'events');
+  const maxEvents = getMaxEventsDaily(eventDaily);
 
   // get the number days that have events < Min
-
-  const totalDaysWithMinValues = eventDaily.reduce((accumulator, object) => {
-    if (object?.events < MINEVENTSPERDAY) {
-      return accumulator + 1;
-    }
-    return accumulator;
-  }, 0);
+  const totalDaysWithMinValues = getTotalDaysWithMinValues(
+    eventDaily,
+    MINEVENTSPERDAY
+  );
 
   // get the hour with the most events
-  const hourWithMaxEvents = maxBy(
-    chain(eventHourly)
-      // Group the elements of Array based on `hour` property
-      .groupBy('hour')
-      // `key` is group's name (hour), `value` is the array of objects
-      .map((value, key) => ({ hour: key, events: value }))
-      .value()
-      .map((item) => {
-        const { hour, events } = item;
-        return {
-          hour,
-          events: events.reduce((accumulator, object) => {
-            return accumulator + object?.events;
-          }, 0),
-        };
-      }),
-    function (o) {
-      return o.events;
-    }
-  );
+  const hourWithMaxEvents = getHourWithMaxEvents(eventHourly);
 
   const { Provider } = EventContext;
 

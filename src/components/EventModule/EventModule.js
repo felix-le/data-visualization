@@ -19,6 +19,7 @@ function EventModule() {
     isComperingMultiDays,
     setIsComperingMultiDays,
   } = useContext(EventContext);
+
   return (
     <Container maxWidth='xl'>
       <Typography variant='h4' sx={{ mb: 5 }}>
