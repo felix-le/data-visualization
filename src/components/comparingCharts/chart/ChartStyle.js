@@ -2,7 +2,7 @@
 import { alpha, useTheme } from '@mui/material/styles';
 import { GlobalStyles } from '@mui/material';
 // utils
-import cssStyles from '../../utils/cssStyles';
+import cssStyles from '../../../utils/cssStyles';
 
 // ----------------------------------------------------------------------
 
@@ -21,7 +21,9 @@ export default function ChartStyle() {
             boxShadow: theme.customShadows.dropdown,
             borderRadius: Number(theme.shape.borderRadius) * 1.5,
             '&:before': { borderBottomColor: 'transparent' },
-            '&:after': { borderBottomColor: alpha(theme.palette.background.default, 0.8) },
+            '&:after': {
+              borderBottomColor: alpha(theme.palette.background.default, 0.8),
+            },
           },
           '.apexcharts-tooltip.apexcharts-theme-light': {
             ...cssStyles(theme).bgBlur(),
@@ -33,7 +35,10 @@ export default function ChartStyle() {
               textAlign: 'center',
               fontWeight: theme.typography.fontWeightBold,
               backgroundColor: theme.palette.grey[500_16],
-              color: theme.palette.text[theme.palette.mode === 'light' ? 'secondary' : 'primary'],
+              color:
+                theme.palette.text[
+                  theme.palette.mode === 'light' ? 'secondary' : 'primary'
+                ],
             },
           },
           // Legend

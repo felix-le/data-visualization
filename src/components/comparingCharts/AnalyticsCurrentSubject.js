@@ -4,7 +4,7 @@ import ReactApexChart from 'react-apexcharts';
 import { useTheme, styled } from '@mui/material/styles';
 import { Card, CardHeader } from '@mui/material';
 //
-import { BaseOptionChart } from '../../../../components/chart';
+import { BaseOptionChart } from './chart';
 
 // ----------------------------------------------------------------------
 
@@ -45,7 +45,14 @@ export default function AnalyticsCurrentSubject() {
     fill: { opacity: 0.48 },
     legend: { floating: true, horizontalAlign: 'center' },
     xaxis: {
-      categories: ['English', 'History', 'Physics', 'Geography', 'Chinese', 'Math'],
+      categories: [
+        'English',
+        'History',
+        'Physics',
+        'Geography',
+        'Chinese',
+        'Math',
+      ],
       labels: {
         style: {
           colors: [
@@ -63,9 +70,14 @@ export default function AnalyticsCurrentSubject() {
 
   return (
     <Card>
-      <CardHeader title="Current Subject" />
-      <ChartWrapperStyle dir="ltr">
-        <ReactApexChart type="radar" series={CHART_DATA} options={chartOptions} height={340} />
+      <CardHeader title='Current Subject' />
+      <ChartWrapperStyle dir='ltr'>
+        <ReactApexChart
+          type='radar'
+          series={CHART_DATA}
+          options={chartOptions}
+          height={340}
+        />
       </ChartWrapperStyle>
     </Card>
   );

@@ -5,11 +5,11 @@ import { Grid, Container, Typography } from '@mui/material';
 
 // sections
 import {
-  // AnalyticsCurrentVisits,
-  // AnalyticsWebsiteVisits,
+  AnalyticsCurrentVisits,
+  AnalyticsWebsiteVisits,
   AnalyticsWidgetSummary,
-  // AnalyticsCurrentSubject,
-  // AnalyticsConversionRates,
+  AnalyticsCurrentSubject,
+  AnalyticsConversionRates,
 } from '../../components/comparingCharts';
 
 function Chart() {
@@ -56,7 +56,7 @@ function Chart() {
               icon={'ant-design:bug-filled'}
             />
           </Grid>
-          {/* 
+
           <Grid item xs={12} md={6} lg={8}>
             <AnalyticsWebsiteVisits />
           </Grid>
@@ -71,7 +71,7 @@ function Chart() {
 
           <Grid item xs={12} md={6} lg={4}>
             <AnalyticsCurrentSubject />
-          </Grid> */}
+          </Grid>
         </Grid>
       </Container>
     </Layout>

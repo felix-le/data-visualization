@@ -3,7 +3,7 @@ import ReactApexChart from 'react-apexcharts';
 // @mui
 import { Card, CardHeader, Box } from '@mui/material';
 //
-import { BaseOptionChart } from '../../../../components/chart';
+import { BaseOptionChart } from './chart';
 
 // ----------------------------------------------------------------------
 
@@ -60,9 +60,14 @@ export default function AnalyticsWebsiteVisits() {
 
   return (
     <Card>
-      <CardHeader title="Website Visits" subheader="(+43%) than last year" />
-      <Box sx={{ p: 3, pb: 1 }} dir="ltr">
-        <ReactApexChart type="line" series={CHART_DATA} options={chartOptions} height={364} />
+      <CardHeader title='Website Visits' subheader='(+43%) than last year' />
+      <Box sx={{ p: 3, pb: 1 }} dir='ltr'>
+        <ReactApexChart
+          type='line'
+          series={CHART_DATA}
+          options={chartOptions}
+          height={364}
+        />
       </Box>
     </Card>
   );
