@@ -15,7 +15,7 @@ const reducers = (state = initialEventState, action) => {
         eventHourly: data.map((item) => {
           const newObj = {
             ...item,
-            date: dayjs(item.date).format('YYYY-MM-DD'),
+            date: dayjs(item.date).format('MM/DD/YYYY'),
           };
           return newObj;
         }),
@@ -26,7 +26,7 @@ const reducers = (state = initialEventState, action) => {
         eventDaily: action.payload.data.map((item) => {
           const newObj = {
             ...item,
-            date: dayjs(item.date).format('YYYY-MM-DD'),
+            date: dayjs(item.date).format('MM/DD/YYYY'),
             events: parseInt(item.events),
           };
           return newObj;

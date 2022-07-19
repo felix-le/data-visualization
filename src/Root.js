@@ -5,8 +5,8 @@ import { PersistGate } from 'redux-persist/integration/react';
 import dayjsUTC from 'dayjs-plugin-utc';
 import { StylesProvider, createGenerateClassName } from '@mui/styles';
 import dayjs from 'dayjs';
-
-import theme from './theme.js';
+import { CssBaseline } from '@mui/material';
+import theme from './theme';
 import App from './App';
 
 import { store, persistor } from './store';
@@ -24,6 +24,7 @@ function Root() {
       <PersistGate loading={null} persistor={persistor}>
         <StylesProvider generateClassName={generateClassName}>
           <ThemeProvider theme={theme}>
+            <CssBaseline />
             <App />
           </ThemeProvider>
         </StylesProvider>

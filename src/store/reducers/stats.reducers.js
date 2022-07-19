@@ -15,7 +15,7 @@ const reducers = (state = initialStatsState, action) => {
         statsDaily: action.payload.data.map((item) => {
           const newObj = {
             ...item,
-            date: dayjs(item.date).format('YYYY-MM-DD'),
+            date: dayjs(item.date).format('MM/DD/YYYY'),
             impressions: parseInt(item.impressions),
             clicks: parseInt(item.clicks),
             revenue: parseFloat(parseFloat(item.revenue).toFixed(2)),
@@ -29,7 +29,7 @@ const reducers = (state = initialStatsState, action) => {
         statsHourly: action.payload.data.map((item) => {
           const newObj = {
             ...item,
-            date: dayjs(item.date).format('YYYY-MM-DD'),
+            date: dayjs(item.date).format('MM/DD/YYYY'),
             revenue: parseFloat(parseFloat(item.revenue).toFixed(2)),
           };
           return newObj;

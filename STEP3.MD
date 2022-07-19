@@ -7,6 +7,9 @@
 
 => Use can choose the metric to visualize based on the following list:
 
+User can choose single day or time period they want to visualize
+User can choose type data to visualize
+
 - events
 - ===> Compare day vs day, hour vs hour
 
@@ -14,7 +17,11 @@
 
 * eventHourly: date + hour + number events
 
-User can choose single day or time period they want to visualize
-
 The latest day is 2017-01-01
 The newest day is 2017-02-11
+
+## Compare single day vs single day (eventDaily)
+
+## **The flow**
+
+1. By default, the visualization will be shown whole time period.
