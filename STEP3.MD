@@ -1,0 +1,20 @@
+# Working on Q1
+
+**requirements:** Implement one or more types of charts to visualize data supplied from the API endpoints effectively. Users should be able to pick different metrics to visualize and compare with others.
+
+- Element in each module should be compared with the same module
+- eventDaily is the sum of eventHourly for each day ==> get the same time period
+
+=> Use can choose the metric to visualize based on the following list:
+
+- events
+- ===> Compare day vs day, hour vs hour
+
+* eventDaily: date + number events
+
+* eventHourly: date + hour + number events
+
+User can choose single day or time period they want to visualize
+
+The latest day is 2017-01-01
+The newest day is 2017-02-11
