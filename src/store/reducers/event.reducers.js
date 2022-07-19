@@ -10,12 +10,12 @@ const reducers = (state = initialEventState, action) => {
     case GET_EVENT_HOURLY:
       return {
         ...state,
-        eventHourly: [...state.eventHourly, action.payload.data],
+        eventHourly: action.payload.data,
       };
     case GET_EVENT_DAILY:
       return {
         ...state,
-        eventDaily: [...state.eventDaily, action.payload.data],
+        eventDaily: action.payload.data,
       };
     default:
       return state;
