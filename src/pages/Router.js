@@ -10,10 +10,10 @@ import HomePage from './HomePage';
 function Router() {
   return (
     <Routes>
+      <Route path='/' element={<HomePage />} />
       <Route path='/table' element={<TablePage />} />
       <Route path='/chart' element={<ChartPage />} />
       <Route path='/geo' element={<GeoPage />} />
-      <Route path='/' element={<HomePage />} />
     </Routes>
   );
 }
