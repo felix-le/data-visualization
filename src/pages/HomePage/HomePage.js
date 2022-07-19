@@ -1,30 +1,30 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
-import { getEventHourly } from '../../store/actions/event.actions';
-import { getEventHourlyApi } from '../../api/getEvents';
+import {
+  getEventHourly,
+  getEventDaily,
+} from '../../store/actions/event.actions';
+import { getEventHourlyApi, getEDailyApi } from '../../api/getEvents';
 
 function HomePage() {
   const dispatch = useDispatch();
 
-  const _getEventHourly = async () => {
-    try {
-      const response = await getEventHourlyApi();
-      console.log(
-        '🚀 ~ file: HomePage.js ~ line 12 ~ const_getEventHourly= ~ response',
-        response
-      );
-      // dispatch(getEventHourly(response.data));
-    } catch (e) {
-      console.log(e);
-    }
-  };
+  // useCallback for _getEventHourly
+  const _getEventHourly = useCallback(async () => {
+    const response = await getEventHourlyApi();
+
+    dispatch(getEventHourly(response));
+  }, [dispatch]);
+  const _getEventDaily = useCallback(async () => {
+    const response = await getEDailyApi();
+    dispatch(getEventDaily(response));
+  }, [dispatch]);
 
   useEffect(() => {
     _getEventHourly();
-
-    // dispatch({ });
-  }, []);
-  return <div>HomePage</div>;
+    _getEventDaily();
+  }, [_getEventHourly, _getEventDaily]);
+  return <h1>HomePage</h1>;
 }
 
 export default HomePage;

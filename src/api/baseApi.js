@@ -6,7 +6,6 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.response.use(
   (response) => {
-    console.log('🚀 ~ file: baseApi.js ~ line 9 ~ response', response);
     return response.data;
   },
   (error) => {
