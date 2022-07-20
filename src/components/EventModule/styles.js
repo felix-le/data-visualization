@@ -38,18 +38,26 @@ const useStyles = makeStyles((theme) => ({
       padding: '0 16px',
       color: theme.palette.text.primary,
       borderRight: '1px solid rgba(0,0,0,1.12)',
+
       '&:last-child': {
         borderRight: 'none',
       },
+      '& .thWrapper': {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+      },
+
+      '& .iconContainer': {
+        width: 38,
+        height: 32,
+        borderRadius: 4,
+        marginLeft: 10,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+      },
     },
-  },
-  iconContainer: {
-    width: 38,
-    height: 32,
-    borderRadius: 4,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
   },
 }));
 

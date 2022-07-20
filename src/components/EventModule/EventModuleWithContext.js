@@ -18,11 +18,7 @@ import {
   getEventsForEachHour,
 } from './utils/getEventHour';
 
-import {
-  EVENT_DAILY_SORTING_CATEGORIES,
-  SORT_DIRECTION,
-  flipSortDirection,
-} from '../constants';
+import { EVENT_DAILY_SORTING_CATEGORIES, SORT_DIRECTION } from '../constants';
 
 export const EventContext = createContext({
   isComperingMultiDays: false,
@@ -56,19 +52,19 @@ const EventWithContext = ({ eventDaily, eventHourly }) => {
 
   const [isCompare, setIsCompare] = useState(false);
 
-  const periodFirstData = getEventDailyPeriod(
+  const periodEventDailyFirstData = getEventDailyPeriod(
     eventDaily,
     startFirstDate.firstStart,
     startFirstDate.firstEnd
   );
 
-  const periodSecondComparingData = getEventDailyPeriod(
+  const periodComparingEventDailyData = getEventDailyPeriod(
     eventDaily,
     startComparedDate.secondStart,
     startComparedDate.secondEnd
   );
 
-  const finalPeriodComparingDataDisplay = periodSecondComparingData;
+  const finalPeriodComparingDataDisplay = periodComparingEventDailyData;
 
   const totalEventsComparing = getTotalDailyEvents(
     finalPeriodComparingDataDisplay
@@ -90,35 +86,47 @@ const EventWithContext = ({ eventDaily, eventHourly }) => {
     SORT_DIRECTION.ASC
   );
   const [searchEventDailyTerm, setSearchEventDailyTerm] = useState('');
-  console.log(
-    '🚀 ~ file: EventModuleWithContext.js ~ line 93 ~ EventWithContext ~ searchEventDailyTerm',
-    searchEventDailyTerm
-  );
 
   // Event daily
-  const finalDisplayEventDaily = useMemo(
+  const finalDisplayEventDailyDefault = useMemo(
     () =>
       getTableEventDaily(
-        periodFirstData,
+        periodEventDailyFirstData,
         searchEventDailyTerm,
         sortEventDailyCol,
         sortEventDailyDirection
       ),
     [
-      periodFirstData,
+      periodEventDailyFirstData,
       searchEventDailyTerm,
       sortEventDailyCol,
       sortEventDailyDirection,
     ]
   );
 
-  const totalEvents = getTotalDailyEvents(finalDisplayEventDaily);
+  const finalDisplayEventDailyComparing = useMemo(
+    () =>
+      getTableEventDaily(
+        periodComparingEventDailyData,
+        searchEventDailyTerm,
+        sortEventDailyCol,
+        sortEventDailyDirection
+      ),
+    [
+      periodComparingEventDailyData,
+      searchEventDailyTerm,
+      sortEventDailyCol,
+      sortEventDailyDirection,
+    ]
+  );
+
+  const totalEvents = getTotalDailyEvents(finalDisplayEventDailyDefault);
   // get the day has the most events
-  const maxEvents = getMaxEventsDaily(finalDisplayEventDaily);
+  const maxEvents = getMaxEventsDaily(finalDisplayEventDailyDefault);
 
   // get the number days that have events < Min
   const totalDaysWithMinValues = getTotalDaysWithMinValues(
-    finalDisplayEventDaily,
+    finalDisplayEventDailyDefault,
     MINEVENTSPERDAY
   );
 
@@ -189,14 +197,16 @@ const EventWithContext = ({ eventDaily, eventHourly }) => {
     periodTimeDefault,
     hourWithMaxCompareEvents,
     hourComparingChartData,
-    finalDisplayEventDaily,
+    finalDisplayEventDailyDefault,
     // Table data
     sortEventDailyCol,
     setEventDailySortCol,
     sortEventDailyDirection,
     setSortEventDailyDirection,
+    // search data
     searchEventDailyTerm,
     setSearchEventDailyTerm,
+    finalDisplayEventDailyComparing,
   };
 
   return (

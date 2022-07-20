@@ -28,6 +28,8 @@ const flipSortDirection = (oldDirection) => {
     : SORT_DIRECTION.ASC;
 };
 
+const ROW_PER_PAGE_DEFAULT = 10;
+
 export {
   maxDate,
   minDate,
@@ -37,4 +39,5 @@ export {
   EVENT_DAILY_SORTING_CATEGORIES,
   SORT_DIRECTION,
   flipSortDirection,
+  ROW_PER_PAGE_DEFAULT,
 };
