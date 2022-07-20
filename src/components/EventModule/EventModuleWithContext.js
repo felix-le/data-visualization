@@ -127,10 +127,6 @@ const EventWithContext = ({ eventDaily, eventHourly }) => {
     ? [eventsForEachHourComparingDefault, eventsForEachHourComparingSecond]
     : [eventsForEachHourComparingDefault];
   const { Provider } = EventContext;
-  console.log(
-    '🚀 ~ file: EventModuleWithContext.js ~ line 133 ~ EventWithContext ~ hourComparingChartData',
-    hourComparingChartData
-  );
 
   const value = {
     totalEvents,
