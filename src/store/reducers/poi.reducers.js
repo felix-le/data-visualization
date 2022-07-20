@@ -1,6 +1,4 @@
 import { GET_POI } from '../actions/poi.actions';
-// import dayjs from 'dayjs';
-import dayjs from 'dayjs';
 const initialPoiState = {
   poi: [],
   isLoadingPois: false, // will update later

@@ -7,7 +7,7 @@ import { Card, CardHeader } from '@mui/material';
 import { fNumber } from '../../utils/formatNumber';
 //
 import { BaseOptionChart } from './chart';
-
+import { Typography } from '@mui/material';
 // ----------------------------------------------------------------------
 
 const CHART_HEIGHT = 372;
@@ -31,9 +31,11 @@ const ChartWrapperStyle = styled('div')(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-const CHART_DATA = [4344, 5435, 1443, 4443];
-
-export default function AnalyticsCurrentVisits() {
+export default function AnalyticsCurrentVisits({
+  labels = [],
+  data = [],
+  title = 'Compare data',
+}) {
   const theme = useTheme();
 
   const chartOptions = merge(BaseOptionChart(), {
@@ -43,7 +45,7 @@ export default function AnalyticsCurrentVisits() {
       theme.palette.chart.violet[0],
       theme.palette.chart.yellow[0],
     ],
-    labels: ['America', 'Asia', 'Europe', 'Africa'],
+    labels: labels,
     stroke: { colors: [theme.palette.background.paper] },
     legend: { floating: true, horizontalAlign: 'center' },
     dataLabels: { enabled: true, dropShadow: { enabled: false } },
@@ -63,14 +65,19 @@ export default function AnalyticsCurrentVisits() {
 
   return (
     <Card>
-      <CardHeader title='Current Visits' />
+      <CardHeader title='Event comperation' />
       <ChartWrapperStyle dir='ltr'>
         <ReactApexChart
           type='pie'
-          series={CHART_DATA}
+          series={data}
           options={chartOptions}
           height={280}
         />
+        {title && (
+          <Typography variant='h5' align='center'>
+            {title}
+          </Typography>
+        )}
       </ChartWrapperStyle>
     </Card>
   );

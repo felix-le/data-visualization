@@ -7,64 +7,28 @@ import { BaseOptionChart } from './chart';
 
 // ----------------------------------------------------------------------
 
-const CHART_DATA = [
-  {
-    name: 'Team A',
-    type: 'column',
-    data: [23, 11, 22, 27, 13, 22, 37, 21, 44, 22, 30],
-  },
-  {
-    name: 'Team B',
-    type: 'area',
-    data: [44, 55, 41, 67, 22, 43, 21, 41, 56, 27, 43],
-  },
-  {
-    name: 'Team C',
-    type: 'line',
-    data: [30, 25, 36, 30, 45, 35, 64, 52, 59, 36, 39],
-  },
-];
-
-export default function AnalyticsWebsiteVisits() {
+export default function AnalyticsWebsiteVisits({ data }) {
   const chartOptions = merge(BaseOptionChart(), {
-    stroke: { width: [0, 2, 3] },
+    stroke: { width: [0, 5] },
     plotOptions: { bar: { columnWidth: '14%' } },
-    fill: { type: ['solid', 'gradient', 'solid'] },
+    fill: { type: ['solid', 'solid'] },
     labels: [
-      '01/01/2003',
-      '02/01/2003',
-      '03/01/2003',
-      '04/01/2003',
-      '05/01/2003',
-      '06/01/2003',
-      '07/01/2003',
-      '08/01/2003',
-      '09/01/2003',
-      '10/01/2003',
-      '11/01/2003',
+      0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+      21, 22, 23,
     ],
-    xaxis: { type: 'datetime' },
+    xaxis: { type: 'hour' },
     tooltip: {
-      shared: true,
-      intersect: false,
-      y: {
-        formatter: (y) => {
-          if (typeof y !== 'undefined') {
-            return `${y.toFixed(0)} visits`;
-          }
-          return y;
-        },
-      },
+      enabled: false,
     },
   });
 
   return (
     <Card>
-      <CardHeader title='Website Visits' subheader='(+43%) than last year' />
+      <CardHeader title='Events per hour' />
       <Box sx={{ p: 3, pb: 1 }} dir='ltr'>
         <ReactApexChart
           type='line'
-          series={CHART_DATA}
+          series={data}
           options={chartOptions}
           height={364}
         />
