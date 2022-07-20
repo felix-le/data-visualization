@@ -1,9 +1,10 @@
 import React, { useContext } from 'react';
 import { Grid, Container, Typography } from '@mui/material';
 import DatePicker from 'react-datepicker';
-import dayjs from 'dayjs';
-import { minDate, maxDate } from '../constants';
+import { minDate, maxDate, dateComparingFormat } from '../constants';
 import Switch from '@mui/material/Switch';
+import Box from '@mui/material/Box';
+import { useStyles } from './styles';
 
 import { EventContext } from './EventModuleWithContext';
 // sections
@@ -11,11 +12,10 @@ import {
   AnalyticsCurrentVisits,
   AnalyticsWebsiteVisits,
   AnalyticsWidgetSummary,
-  AnalyticsCurrentSubject,
-  AnalyticsConversionRates,
 } from '../../components/comparingCharts';
 
 function EventModule() {
+  const styles = useStyles();
   const {
     totalEvents,
     maxEvents,
@@ -32,72 +32,81 @@ function EventModule() {
     maxEventsComparing,
     totalDaysWithMinValuesComparing,
     hourWithMaxEventsComparing,
+    dayBetweenDefault,
   } = useContext(EventContext);
 
   return (
     <Container maxWidth='xl'>
-      <Typography variant='h4' sx={{ mb: 5 }}>
+      <Typography variant='h4' align='center' sx={{ mb: 5 }}>
         Hi, Please check report from 01/01/2017 to 03/11/2017
       </Typography>
+      <Box sx={{ textAlign: 'center', mb: 2 }}>
+        <Typography variant='h5' className='text-center'>
+          Is compared?
+        </Typography>
+        <Switch
+          checked={isCompare}
+          onChange={() => setIsCompare(!isCompare)}
+          inputProps={{ 'aria-label': 'controlled' }}
+        />
+      </Box>
+      <div className={styles.comparedWrapper}>
+        <Typography variant='h5'>From</Typography>
+        <DatePicker
+          selected={startFirstDate.firstStart}
+          onChange={(date) =>
+            setStartFirstDate({ ...startFirstDate, firstStart: date })
+          }
+          minDate={minDate}
+          maxDate={maxDate}
+        />
 
-      <Typography variant='h5'>From</Typography>
-      <DatePicker
-        selected={startFirstDate.firstStart}
-        onChange={(date) =>
-          setStartFirstDate({ ...startFirstDate, firstStart: date })
-        }
-        minDate={minDate}
-        maxDate={maxDate}
-      />
+        <Typography variant='h5'>To</Typography>
+        <DatePicker
+          selected={startFirstDate.firstEnd}
+          onChange={(date) =>
+            setStartFirstDate({ ...startFirstDate, firstEnd: date })
+          }
+          minDate={startFirstDate.firstStart}
+          maxDate={maxDate}
+        />
 
-      <Typography variant='h5'>To</Typography>
-      <DatePicker
-        selected={startFirstDate.firstEnd}
-        onChange={(date) =>
-          setStartFirstDate({ ...startFirstDate, firstEnd: date })
-        }
-        minDate={startFirstDate}
-        maxDate={maxDate}
-      />
+        {isCompare && (
+          <>
+            <Box sx={{ m: 2 }} />
+            <Typography variant='h5' className='mx-5 text-red'>
+              Compare
+            </Typography>
+            <Box sx={{ m: 2 }} />
+            <Typography variant='h5'>From</Typography>
+            <DatePicker
+              selected={startComparedDate.secondStart}
+              onChange={(date) =>
+                setStartComparedDate({
+                  ...startComparedDate,
+                  secondStart: date,
+                })
+              }
+              minDate={startFirstDate.firstEnd}
+              maxDate={maxDate}
+            />
 
-      <h3>Is compared?</h3>
-      <Switch
-        checked={isCompare}
-        onChange={() => setIsCompare(!isCompare)}
-        inputProps={{ 'aria-label': 'controlled' }}
-      />
-      {isCompare && (
-        <>
-          <Typography variant='h1'>Compare with</Typography>
-
-          <Typography variant='h5'>From</Typography>
-          <DatePicker
-            selected={startComparedDate.secondStart}
-            onChange={(date) =>
-              setStartComparedDate({
-                ...startComparedDate,
-                secondStart: date,
-              })
-            }
-            minDate={startFirstDate.firstEnd}
-            maxDate={maxDate}
-          />
-
-          <Typography variant='h5'>To</Typography>
-          <DatePicker
-            selected={startComparedDate.secondEnd}
-            defaultValue={maxDate}
-            onChange={(date) =>
-              setStartComparedDate({
-                ...startComparedDate,
-                secondEnd: date,
-              })
-            }
-            minDate={startComparedDate.secondStart}
-            maxDate={maxDate}
-          />
-        </>
-      )}
+            <Typography variant='h5'>To</Typography>
+            <DatePicker
+              selected={startComparedDate.secondEnd}
+              defaultValue={maxDate}
+              onChange={(date) =>
+                setStartComparedDate({
+                  ...startComparedDate,
+                  secondEnd: date,
+                })
+              }
+              minDate={startComparedDate.secondStart}
+              maxDate={maxDate}
+            />
+          </>
+        )}
+      </div>
 
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6} md={3}>
@@ -106,7 +115,7 @@ function EventModule() {
             total={`${
               isCompare ? `${totalEvents}/${totalEventsComparing}` : totalEvents
             }`}
-            icon={'ant-design:android-filled'}
+            icon={'ant-design:bell-filled'}
             isCompare={isCompare}
           />
         </Grid>
@@ -121,7 +130,7 @@ function EventModule() {
                 : maxEvents?.events
             }`}
             color='info'
-            icon={'ant-design:apple-filled'}
+            icon={'ant-design:calendar-filled'}
             isCompare={isCompare}
           />
         </Grid>
@@ -155,21 +164,34 @@ function EventModule() {
             isCompare={isCompare}
           />
         </Grid>
+        {/* Compare for daily events */}
+        {isCompare ? (
+          <Grid item xs={12} md={6} lg={4}>
+            <AnalyticsCurrentVisits
+              labels={[
+                `${dateComparingFormat(
+                  startFirstDate.firstStart
+                )} - ${dateComparingFormat(startFirstDate.firstEnd)}`,
+                `${dateComparingFormat(
+                  startComparedDate.secondStart
+                )} - ${dateComparingFormat(startComparedDate.secondEnd)}`,
+              ]}
+              data={[totalEvents, totalEventsComparing]}
+              title='Compare Total Events'
+            />
+          </Grid>
+        ) : (
+          <Grid item xs={12} md={6} lg={4}>
+            <AnalyticsCurrentVisits
+              labels={['Total days with min values', 'Total days']}
+              data={[totalDaysWithMinValues, dayBetweenDefault]}
+              title='Total days with min values / total days'
+            />
+          </Grid>
+        )}
 
         <Grid item xs={12} md={6} lg={8}>
           <AnalyticsWebsiteVisits />
-        </Grid>
-
-        <Grid item xs={12} md={6} lg={4}>
-          <AnalyticsCurrentVisits />
-        </Grid>
-
-        <Grid item xs={12} md={6} lg={8}>
-          <AnalyticsConversionRates />
-        </Grid>
-
-        <Grid item xs={12} md={6} lg={4}>
-          <AnalyticsCurrentSubject />
         </Grid>
       </Grid>
     </Container>

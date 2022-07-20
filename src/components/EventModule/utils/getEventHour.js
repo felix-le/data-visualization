@@ -1,7 +1,11 @@
 import { chain, maxBy } from 'lodash';
 
-function getHourWithMaxEvents(eventHourly) {
-  return maxBy(
+function getEventForEachHour(eventHourly) {
+  console.log(
+    '🚀 ~ file: getEventHour.js ~ line 4 ~ getEventForEachHour ~ eventHourly',
+    eventHourly
+  );
+  return (
     chain(eventHourly)
       // Group the elements of Array based on `hour` property
       .groupBy('hour')
@@ -11,16 +15,19 @@ function getHourWithMaxEvents(eventHourly) {
       .map((item) => {
         const { hour, events } = item;
         return {
-          hour,
+          hour: parseFloat(hour),
           events: events.reduce((accumulator, object) => {
             return accumulator + object?.events;
           }, 0),
         };
-      }),
-    function (o) {
-      return o.events;
-    }
+      })
   );
 }
 
-export { getHourWithMaxEvents };
+function getHourWithMaxEvents(eventHourly) {
+  return maxBy(getEventForEachHour(eventHourly), function (o) {
+    return o.events;
+  });
+}
+
+export { getHourWithMaxEvents, getEventForEachHour };

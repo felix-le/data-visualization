@@ -18,11 +18,11 @@ const CHART_DATA = [
     type: 'area',
     data: [44, 55, 41, 67, 22, 43, 21, 41, 56, 27, 43],
   },
-  {
-    name: 'Team C',
-    type: 'line',
-    data: [30, 25, 36, 30, 45, 35, 64, 52, 59, 36, 39],
-  },
+  // {
+  //   name: 'Team C',
+  //   type: 'line',
+  //   data: [30, 25, 36, 30, 45, 35, 64, 52, 59, 36, 39],
+  // },
 ];
 
 export default function AnalyticsWebsiteVisits() {

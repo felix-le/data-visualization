@@ -1,7 +1,13 @@
-import React, { createContext, useState, useMemo } from 'react';
+import React, { createContext, useState } from 'react';
 import EventModule from './EventModule';
-import dayjs from 'dayjs';
-import { maxDate, minDate, dateComparingFormat } from '../constants';
+
+import {
+  maxDate,
+  minDate,
+  dateComparingFormat,
+  getDayBetween,
+  MINEVENTSPERDAY,
+} from '../constants';
 
 import {
   getTotalDailyEvents,
@@ -9,7 +15,7 @@ import {
   getTotalDaysWithMinValues,
 } from './utils/getEventDaily';
 
-import { getHourWithMaxEvents } from './utils/getEventHour';
+import { getHourWithMaxEvents, getHourAndEvent } from './utils/getEventHour';
 
 export const EventContext = createContext({
   isComperingMultiDays: false,
@@ -27,9 +33,8 @@ export const EventContext = createContext({
   maxEventsComparing: {},
   totalDaysWithMinValuesComparing: 0,
   hourWithMaxEventsComparing: {},
+  dayBetweenDefault: 0,
 });
-
-const MINEVENTSPERDAY = 15;
 
 function getEventDailyPeriod(eventDaily, startDate, endDate) {
   const _startDate = dateComparingFormat(startDate);
@@ -90,6 +95,11 @@ const EventWithContext = ({ eventDaily, eventHourly }) => {
   // get the hour with the most events
   const hourWithMaxEvents = getHourWithMaxEvents(eventHourly);
 
+  const dayBetweenDefault = getDayBetween(
+    startFirstDate.firstStart,
+    startFirstDate.firstEnd
+  );
+
   const { Provider } = EventContext;
 
   const value = {
@@ -97,8 +107,6 @@ const EventWithContext = ({ eventDaily, eventHourly }) => {
     maxEvents,
     totalDaysWithMinValues,
     hourWithMaxEvents,
-    startFirstDate,
-    setStartFirstDate,
     startFirstDate,
     setStartFirstDate,
     setIsCompare,
@@ -110,6 +118,7 @@ const EventWithContext = ({ eventDaily, eventHourly }) => {
     maxEventsComparing,
     totalDaysWithMinValuesComparing,
     hourWithMaxEventsComparing,
+    dayBetweenDefault,
   };
 
   return (
