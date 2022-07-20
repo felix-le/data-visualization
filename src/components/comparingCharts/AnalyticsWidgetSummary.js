@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 // @mui
 import { alpha, styled } from '@mui/material/styles';
 import { Card, Typography } from '@mui/material';

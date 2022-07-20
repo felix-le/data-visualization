@@ -31,8 +31,6 @@ const ChartWrapperStyle = styled('div')(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-const CHART_DATA = [4344, 5435, 1443, 4443];
-
 export default function AnalyticsCurrentVisits({
   labels = [],
   data = [],

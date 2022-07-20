@@ -1,5 +1,7 @@
 import { maxBy } from 'lodash';
 
+import { dateComparingFormat } from '../../constants';
+
 function getTotalDailyEvents(eventDaily) {
   return eventDaily.reduce((accumulator, object) => {
     return accumulator + object?.events;
@@ -19,4 +21,19 @@ function getTotalDaysWithMinValues(eventDaily, MINEVENTSPERDAY) {
   }, 0);
 }
 
-export { getTotalDailyEvents, getMaxEventsDaily, getTotalDaysWithMinValues };
+function getEventDailyPeriod(eventDaily, startDate, endDate) {
+  const _startDate = dateComparingFormat(startDate);
+  const _endDate = dateComparingFormat(endDate);
+  const _eventDaily = eventDaily.filter((event) => {
+    const _eventDate = dateComparingFormat(event.date);
+
+    return _eventDate >= _startDate && _eventDate <= _endDate;
+  });
+  return _eventDaily;
+}
+export {
+  getTotalDailyEvents,
+  getMaxEventsDaily,
+  getTotalDaysWithMinValues,
+  getEventDailyPeriod,
+};

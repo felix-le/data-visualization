@@ -20,7 +20,7 @@ function EventModule() {
     totalEvents,
     maxEvents,
     totalDaysWithMinValues,
-    hourWithMaxEvents,
+    hourWithMaxDefaultEvents,
     startFirstDate,
     setStartFirstDate,
     setIsCompare,
@@ -32,7 +32,9 @@ function EventModule() {
     maxEventsComparing,
     totalDaysWithMinValuesComparing,
     hourWithMaxEventsComparing,
-    dayBetweenDefault,
+    periodTimeDefault,
+    hourWithMaxCompareEvents,
+    hourComparingChartData,
   } = useContext(EventContext);
 
   return (
@@ -137,12 +139,14 @@ function EventModule() {
 
         <Grid item xs={12} sm={6} md={3}>
           <AnalyticsWidgetSummary
-            title={`${hourWithMaxEvents.hour}h has the most events`}
+            title={`${hourWithMaxDefaultEvents.hour}h${
+              isCompare ? `/${hourWithMaxCompareEvents?.hour}` : ''
+            } has the most events`}
             // total={hourWithMaxEvents?.events}
             total={`${
               isCompare
-                ? `${hourWithMaxEvents?.events}/${hourWithMaxEventsComparing?.events}`
-                : hourWithMaxEvents?.events
+                ? `${hourWithMaxDefaultEvents?.events}/${hourWithMaxEventsComparing?.events}`
+                : hourWithMaxDefaultEvents?.events
             }`}
             color='warning'
             icon={'ant-design:windows-filled'}
@@ -184,14 +188,14 @@ function EventModule() {
           <Grid item xs={12} md={6} lg={4}>
             <AnalyticsCurrentVisits
               labels={['Total days with min values', 'Total days']}
-              data={[totalDaysWithMinValues, dayBetweenDefault]}
+              data={[totalDaysWithMinValues, periodTimeDefault]}
               title='Total days with min values / total days'
             />
           </Grid>
         )}
 
         <Grid item xs={12} md={6} lg={8}>
-          <AnalyticsWebsiteVisits />
+          <AnalyticsWebsiteVisits data={hourComparingChartData} />
         </Grid>
       </Grid>
     </Container>

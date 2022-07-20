@@ -1,21 +1,20 @@
 import React, { createContext, useState } from 'react';
 import EventModule from './EventModule';
 
-import {
-  maxDate,
-  minDate,
-  dateComparingFormat,
-  getDayBetween,
-  MINEVENTSPERDAY,
-} from '../constants';
+import { maxDate, minDate, getDayBetween, MINEVENTSPERDAY } from '../constants';
 
 import {
   getTotalDailyEvents,
   getMaxEventsDaily,
   getTotalDaysWithMinValues,
+  getEventDailyPeriod,
 } from './utils/getEventDaily';
 
-import { getHourWithMaxEvents, getHourAndEvent } from './utils/getEventHour';
+import {
+  getHourWithMaxEvents,
+  getEventsHourlyPeriodTime,
+  getEventsForEachHour,
+} from './utils/getEventHour';
 
 export const EventContext = createContext({
   isComperingMultiDays: false,
@@ -33,19 +32,8 @@ export const EventContext = createContext({
   maxEventsComparing: {},
   totalDaysWithMinValuesComparing: 0,
   hourWithMaxEventsComparing: {},
-  dayBetweenDefault: 0,
+  periodTimeDefault: 0,
 });
-
-function getEventDailyPeriod(eventDaily, startDate, endDate) {
-  const _startDate = dateComparingFormat(startDate);
-  const _endDate = dateComparingFormat(endDate);
-  const _eventDaily = eventDaily.filter((event) => {
-    const _eventDate = dateComparingFormat(event.date);
-
-    return _eventDate >= _startDate && _eventDate <= _endDate;
-  });
-  return _eventDaily;
-}
 
 const EventWithContext = ({ eventDaily, eventHourly }) => {
   const [startFirstDate, setStartFirstDate] = useState({
@@ -71,6 +59,7 @@ const EventWithContext = ({ eventDaily, eventHourly }) => {
     startComparedDate.secondStart,
     startComparedDate.secondEnd
   );
+
   const totalEventsComparing = getTotalDailyEvents(periodSecondComparingData);
   const maxEventsComparing = getMaxEventsDaily(periodSecondComparingData);
   const totalDaysWithMinValuesComparing = getTotalDaysWithMinValues(
@@ -92,21 +81,62 @@ const EventWithContext = ({ eventDaily, eventHourly }) => {
     MINEVENTSPERDAY
   );
 
-  // get the hour with the most events
-  const hourWithMaxEvents = getHourWithMaxEvents(eventHourly);
+  const periodTimeDefault = getDayBetween(
+    startFirstDate.firstStart,
+    startFirstDate.firstEnd
+  );
+  ///////////// Working on Event Hourly
 
-  const dayBetweenDefault = getDayBetween(
+  // get the hour with the most events
+  const periodHourlyDefaultData = getEventsHourlyPeriodTime(
+    eventHourly,
     startFirstDate.firstStart,
     startFirstDate.firstEnd
   );
 
+  const periodHourlyComparingData = getEventsHourlyPeriodTime(
+    eventHourly,
+    startComparedDate.secondStart,
+    startComparedDate.secondEnd
+  );
+
+  const hourWithMaxDefaultEvents = getHourWithMaxEvents(
+    periodHourlyDefaultData
+  );
+
+  const hourWithMaxCompareEvents = getHourWithMaxEvents(
+    periodHourlyComparingData
+  );
+
+  // genarate comparing chart data for hourly
+  const eventsForEachHourComparingDefault = {
+    name: 'Based period',
+    type: 'column',
+    data: getEventsForEachHour(periodHourlyDefaultData).map(
+      ({ events }) => events
+    ),
+  };
+  const eventsForEachHourComparingSecond = {
+    name: 'Coparing period',
+    type: 'line',
+    data: getEventsForEachHour(periodHourlyComparingData).map(
+      ({ events }) => events
+    ),
+  };
+  const hourComparingChartData = isCompare
+    ? [eventsForEachHourComparingDefault, eventsForEachHourComparingSecond]
+    : [eventsForEachHourComparingDefault];
   const { Provider } = EventContext;
+  console.log(
+    '🚀 ~ file: EventModuleWithContext.js ~ line 133 ~ EventWithContext ~ hourComparingChartData',
+    hourComparingChartData
+  );
 
   const value = {
     totalEvents,
     maxEvents,
     totalDaysWithMinValues,
-    hourWithMaxEvents,
+    hourWithMaxDefaultEvents,
     startFirstDate,
     setStartFirstDate,
     setIsCompare,
@@ -118,7 +148,9 @@ const EventWithContext = ({ eventDaily, eventHourly }) => {
     maxEventsComparing,
     totalDaysWithMinValuesComparing,
     hourWithMaxEventsComparing,
-    dayBetweenDefault,
+    periodTimeDefault,
+    hourWithMaxCompareEvents,
+    hourComparingChartData,
   };
 
   return (

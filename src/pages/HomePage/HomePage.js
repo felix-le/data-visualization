@@ -80,7 +80,7 @@ function HomePage() {
         <h1>Thank you for giving me a chance to join your team</h1>
         <p>Please check answers</p>
         <div className='question-wrapper'>
-          <Link to='/chart'>
+          <Link to='/events'>
             {' '}
             Question 1: Client-side general chart visualizations
           </Link>{' '}
