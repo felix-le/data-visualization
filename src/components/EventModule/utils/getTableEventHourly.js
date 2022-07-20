@@ -13,10 +13,7 @@ const getSearchedEventHourly = (eventHourly, searchTerm) => {
     return eventHourly;
   }
   return eventHourly.filter((event) => {
-    return (
-      event.date.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      event.hour.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+    return event.date.toLowerCase().includes(searchTerm.toLowerCase());
   });
 };
 
