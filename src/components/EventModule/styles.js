@@ -1,6 +1,6 @@
 import { makeStyles } from '@mui/styles';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   root: {},
   comparedWrapper: {
     display: 'flex',
@@ -21,6 +21,35 @@ const useStyles = makeStyles(() => ({
     '& .text-red': {
       color: 'red',
     },
+  },
+  tableContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    height: '100%',
+  },
+  table: {
+    fontSize: 14,
+    color: 'rgba(0,0,0,0.76)',
+  },
+  tableHead: {
+    '& th': {
+      backgroundColor: theme.palette.dark,
+      height: 56,
+      padding: '0 16px',
+      color: theme.palette.text.primary,
+      borderRight: '1px solid rgba(0,0,0,1.12)',
+      '&:last-child': {
+        borderRight: 'none',
+      },
+    },
+  },
+  iconContainer: {
+    width: 38,
+    height: 32,
+    borderRadius: 4,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 }));
 

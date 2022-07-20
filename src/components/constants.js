@@ -13,10 +13,28 @@ const getDayBetween = (startDate, endDate) => {
   return _dayBetween;
 };
 const MINEVENTSPERDAY = 15;
+
+const EVENT_DAILY_SORTING_CATEGORIES = {
+  EVENT_DAILY_DATE: 'EVENT_DAILY_DATE',
+  EVENT_DAILY_EVENTS: 'EVENT_DAILY_EVENTS',
+};
+const SORT_DIRECTION = {
+  ASC: 'ASCENDING',
+  DESC: 'DESCENDING',
+};
+const flipSortDirection = (oldDirection) => {
+  return oldDirection === SORT_DIRECTION.ASC
+    ? SORT_DIRECTION.DESC
+    : SORT_DIRECTION.ASC;
+};
+
 export {
   maxDate,
   minDate,
   dateComparingFormat,
   getDayBetween,
   MINEVENTSPERDAY,
+  EVENT_DAILY_SORTING_CATEGORIES,
+  SORT_DIRECTION,
+  flipSortDirection,
 };

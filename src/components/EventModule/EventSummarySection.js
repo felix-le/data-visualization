@@ -48,7 +48,7 @@ function EventSummarySection() {
       <Grid item xs={12} sm={6} md={3}>
         <AnalyticsWidgetSummary
           title={`${hourWithMaxDefaultEvents.hour}h${
-            isCompare ? `/${hourWithMaxCompareEvents?.hour}` : ''
+            isCompare ? `/${hourWithMaxCompareEvents?.hour}h` : ''
           } has the most events`}
           // total={hourWithMaxEvents?.events}
           total={`${

@@ -1,7 +1,9 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useState, useMemo } from 'react';
 import EventModule from './EventModule';
 
 import { maxDate, minDate, getDayBetween, MINEVENTSPERDAY } from '../constants';
+
+import getTableEventDaily from './utils/getTableEventDaily';
 
 import {
   getTotalDailyEvents,
@@ -15,6 +17,12 @@ import {
   getEventsHourlyPeriodTime,
   getEventsForEachHour,
 } from './utils/getEventHour';
+
+import {
+  EVENT_DAILY_SORTING_CATEGORIES,
+  SORT_DIRECTION,
+  flipSortDirection,
+} from '../constants';
 
 export const EventContext = createContext({
   isComperingMultiDays: false,
@@ -60,16 +68,49 @@ const EventWithContext = ({ eventDaily, eventHourly }) => {
     startComparedDate.secondEnd
   );
 
-  const totalEventsComparing = getTotalDailyEvents(periodSecondComparingData);
-  const maxEventsComparing = getMaxEventsDaily(periodSecondComparingData);
+  const finalPeriodComparingDataDisplay = periodSecondComparingData;
+
+  const totalEventsComparing = getTotalDailyEvents(
+    finalPeriodComparingDataDisplay
+  );
+  const maxEventsComparing = getMaxEventsDaily(finalPeriodComparingDataDisplay);
   const totalDaysWithMinValuesComparing = getTotalDaysWithMinValues(
-    periodSecondComparingData
+    finalPeriodComparingDataDisplay
   );
   const hourWithMaxEventsComparing = getHourWithMaxEvents(
-    periodSecondComparingData
+    finalPeriodComparingDataDisplay
+  );
+  // TABLE DATA
+
+  const [sortEventDailyCol, setEventDailySortCol] = useState(
+    EVENT_DAILY_SORTING_CATEGORIES.EVENT_DAILY_DATE
   );
 
-  const finalDisplayEventDaily = periodFirstData;
+  const [sortEventDailyDirection, setSortEventDailyDirection] = useState(
+    SORT_DIRECTION.ASC
+  );
+  const [searchEventDailyTerm, setSearchEventDailyTerm] = useState('');
+  console.log(
+    '🚀 ~ file: EventModuleWithContext.js ~ line 93 ~ EventWithContext ~ searchEventDailyTerm',
+    searchEventDailyTerm
+  );
+
+  // Event daily
+  const finalDisplayEventDaily = useMemo(
+    () =>
+      getTableEventDaily(
+        periodFirstData,
+        searchEventDailyTerm,
+        sortEventDailyCol,
+        sortEventDailyDirection
+      ),
+    [
+      periodFirstData,
+      searchEventDailyTerm,
+      sortEventDailyCol,
+      sortEventDailyDirection,
+    ]
+  );
 
   const totalEvents = getTotalDailyEvents(finalDisplayEventDaily);
   // get the day has the most events
@@ -126,6 +167,7 @@ const EventWithContext = ({ eventDaily, eventHourly }) => {
   const hourComparingChartData = isCompare
     ? [eventsForEachHourComparingDefault, eventsForEachHourComparingSecond]
     : [eventsForEachHourComparingDefault];
+
   const { Provider } = EventContext;
 
   const value = {
@@ -147,6 +189,14 @@ const EventWithContext = ({ eventDaily, eventHourly }) => {
     periodTimeDefault,
     hourWithMaxCompareEvents,
     hourComparingChartData,
+    finalDisplayEventDaily,
+    // Table data
+    sortEventDailyCol,
+    setEventDailySortCol,
+    sortEventDailyDirection,
+    setSortEventDailyDirection,
+    searchEventDailyTerm,
+    setSearchEventDailyTerm,
   };
 
   return (
