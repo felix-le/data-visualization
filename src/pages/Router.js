@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Routes, Route } from 'react-router-dom';
 
-import TablePage from './TablePage';
+import StatsPage from './StatsPage';
 import Events from './Events';
 import GeoPage from './GeoPage';
 import HomePage from './HomePage';
@@ -13,7 +13,7 @@ function Router() {
       <Route path='/' element={<HomePage />} />
       <Route path='/events' element={<Events />} />
       {/* Change to events page + Poi +  */}
-      <Route path='/table' element={<TablePage />} />
+      <Route path='/stats' element={<StatsPage />} />
       <Route path='/geo' element={<GeoPage />} />
     </Routes>
   );
