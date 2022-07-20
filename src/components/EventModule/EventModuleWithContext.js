@@ -4,6 +4,7 @@ import EventModule from './EventModule';
 import { maxDate, minDate, getDayBetween, MINEVENTSPERDAY } from '../constants';
 
 import getTableEventDaily from './utils/getTableEventDaily';
+import getTableEventHourly from './utils/getTableEventHourly';
 
 import {
   getTotalDailyEvents,
@@ -18,7 +19,11 @@ import {
   getEventsForEachHour,
 } from './utils/getEventHour';
 
-import { EVENT_DAILY_SORTING_CATEGORIES, SORT_DIRECTION } from '../constants';
+import {
+  EVENT_DAILY_SORTING_CATEGORIES,
+  SORT_DIRECTION,
+  EVENT_HOURLY_SORTING_CATEGORIES,
+} from '../constants';
 
 export const EventContext = createContext({
   isComperingMultiDays: false,
@@ -76,7 +81,7 @@ const EventWithContext = ({ eventDaily, eventHourly }) => {
   const hourWithMaxEventsComparing = getHourWithMaxEvents(
     finalPeriodComparingDataDisplay
   );
-  // TABLE DATA
+  // EVENT DAILY TABLE DATA
 
   const [sortEventDailyCol, setEventDailySortCol] = useState(
     EVENT_DAILY_SORTING_CATEGORIES.EVENT_DAILY_DATE
@@ -86,6 +91,8 @@ const EventWithContext = ({ eventDaily, eventHourly }) => {
     SORT_DIRECTION.ASC
   );
   const [searchEventDailyTerm, setSearchEventDailyTerm] = useState('');
+
+  // /////
 
   // Event daily
   const finalDisplayEventDailyDefault = useMemo(
@@ -136,6 +143,16 @@ const EventWithContext = ({ eventDaily, eventHourly }) => {
   );
   ///////////// Working on Event Hourly
 
+  // EVENT HOURLY TABLE DATA
+  const [sortEventHourlyCol, setEventHourlySortCol] = useState(
+    EVENT_HOURLY_SORTING_CATEGORIES.EVENT_HOURLY_DATE
+  );
+
+  const [sortEventHourlyDirection, setSortEventHourlyDirection] = useState(
+    SORT_DIRECTION.ASC
+  );
+  const [searchEventHourlyTerm, setSearchEventHourlyTerm] = useState('');
+
   // get the hour with the most events
   const periodHourlyDefaultData = getEventsHourlyPeriodTime(
     eventHourly,
@@ -148,7 +165,41 @@ const EventWithContext = ({ eventDaily, eventHourly }) => {
     startComparedDate.secondStart,
     startComparedDate.secondEnd
   );
+  const finalDisplayEventHourlyDefault = useMemo(
+    () =>
+      getTableEventHourly(
+        periodHourlyDefaultData,
+        searchEventHourlyTerm,
+        sortEventHourlyCol,
+        sortEventHourlyDirection
+      ),
+    [
+      periodHourlyDefaultData,
+      searchEventHourlyTerm,
+      sortEventHourlyCol,
+      sortEventHourlyDirection,
+    ]
+  );
 
+  const finalDisplayEventHourlyComparing = useMemo(
+    () =>
+      getTableEventHourly(
+        periodHourlyComparingData,
+        searchEventHourlyTerm,
+        sortEventHourlyCol,
+        sortEventHourlyDirection
+      ),
+    [
+      periodHourlyComparingData,
+      searchEventHourlyTerm,
+      sortEventHourlyCol,
+      sortEventHourlyDirection,
+    ]
+  );
+
+  // Working on Event Hourly Table Data
+
+  // Get hour with max events
   const hourWithMaxDefaultEvents = getHourWithMaxEvents(
     periodHourlyDefaultData
   );
@@ -207,6 +258,15 @@ const EventWithContext = ({ eventDaily, eventHourly }) => {
     searchEventDailyTerm,
     setSearchEventDailyTerm,
     finalDisplayEventDailyComparing,
+    // Hourly
+    finalDisplayEventHourlyDefault,
+    finalDisplayEventHourlyComparing,
+    sortEventHourlyCol,
+    setEventHourlySortCol,
+    sortEventHourlyDirection,
+    setSortEventHourlyDirection,
+    searchEventHourlyTerm,
+    setSearchEventHourlyTerm,
   };
 
   return (

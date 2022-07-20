@@ -10,7 +10,7 @@ import { EventContext } from './EventModuleWithContext';
 import Box from '@mui/material/Box';
 import EventSearchBar from './EventSearchBar';
 
-import EventDailySingleTable from './EventDailySingleTable';
+import EventHourlySingleTable from './EventHourlySingleTable';
 import { flipSortDirection } from '../constants';
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -21,22 +21,22 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-function EventDailyTable() {
+function EventHourlyTable() {
   const {
     // Compare data
     isCompare,
-    finalDisplayEventDailyDefault,
-    searchEventDailyTerm,
-    setSearchEventDailyTerm,
-    setEventDailySortCol,
-    sortEventDailyDirection,
-    setSortEventDailyDirection,
-    finalDisplayEventDailyComparing,
+    finalDisplayEventHourlyDefault,
+    finalDisplayEventHourlyComparing,
+    setEventHourlySortCol,
+    sortEventHourlyDirection,
+    setSortEventHourlyDirection,
+    searchEventHourlyTerm,
+    setSearchEventHourlyTerm,
   } = useContext(EventContext);
 
   function _handleChangeSort(col) {
-    setEventDailySortCol(col);
-    setSortEventDailyDirection(flipSortDirection(sortEventDailyDirection));
+    setEventHourlySortCol(col);
+    setSortEventHourlyDirection(flipSortDirection(sortEventHourlyDirection));
   }
 
   return (
@@ -51,18 +51,18 @@ function EventDailyTable() {
         <Box component='span' sx={{ p: 2, textAlign: 'center', width: '100%' }}>
           <Typography variant='h5' align='center' sx={{ mb: 2 }}>
             {' '}
-            Table event Daily Data{' '}
+            Table event Hourly Data{' '}
           </Typography>
           <EventSearchBar
-            searchTerm={searchEventDailyTerm}
-            setSearchTerm={setSearchEventDailyTerm}
+            searchTerm={searchEventHourlyTerm}
+            setSearchTerm={setSearchEventHourlyTerm}
           />
         </Box>
         <Grid item xs={isCompare ? 6 : 12}>
           <Item>
-            <EventDailySingleTable
+            <EventHourlySingleTable
               handleChangeSort={_handleChangeSort}
-              data={finalDisplayEventDailyDefault}
+              data={finalDisplayEventHourlyDefault}
             />
           </Item>
         </Grid>
@@ -70,9 +70,9 @@ function EventDailyTable() {
           <>
             <Grid item xs={6}>
               <Item>
-                <EventDailySingleTable
+                <EventHourlySingleTable
                   handleChangeSort={_handleChangeSort}
-                  data={finalDisplayEventDailyComparing}
+                  data={finalDisplayEventHourlyComparing}
                 />
               </Item>
             </Grid>
@@ -83,4 +83,4 @@ function EventDailyTable() {
   );
 }
 
-export default EventDailyTable;
+export default EventHourlyTable;
