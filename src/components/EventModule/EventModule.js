@@ -5,8 +5,9 @@ import { Grid, Container, Typography } from '@mui/material';
 import CompareSection from './CompareSection';
 import EventSummarySection from './EventSummarySection';
 import DiagramSection from './DiagramSection';
+// Table
 import EventDailyTable from './EventDailyTable';
-
+import EventHourlyTable from './EventHourlyTable';
 function EventModule() {
   return (
     <Container maxWidth='xl'>
@@ -16,7 +17,9 @@ function EventModule() {
       <CompareSection />
       <Grid container spacing={3}>
         <EventSummarySection />
+        {/* Table */}
         <EventDailyTable />
+        <EventHourlyTable />
         {/* Compare for daily events */}
         <DiagramSection />
       </Grid>

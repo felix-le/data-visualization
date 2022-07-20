@@ -104,7 +104,7 @@ const Pagination = ({
                 <Button
                   variant='contained'
                   onClick={(e) => handleChangePage(e, 1)}
-                  disabled={firstPage ? 'disabled' : null}
+                  disabled={firstPage ? true : null}
                 >
                   First
                 </Button>
@@ -128,7 +128,7 @@ const Pagination = ({
                     <Button
                       variant='contained'
                       onClick={(e) => e.preventDefault()}
-                      disabled={firstPage ? 'disabled' : null}
+                      disabled={firstPage ? true : null}
                     >
                       Back
                     </Button>
@@ -168,7 +168,7 @@ const Pagination = ({
                       variant='contained'
                       color='secondary'
                       onClick={(e) => e.preventDefault()}
-                      disabled={lastPage ? 'disabled' : null}
+                      disabled={lastPage ? true : null}
                     >
                       Next
                     </Button>
@@ -180,7 +180,7 @@ const Pagination = ({
                   variant='contained'
                   color='secondary'
                   onClick={(e) => handleChangePage(e, numberPage)}
-                  disabled={lastPage ? 'disabled' : null}
+                  disabled={lastPage ? true : null}
                 >
                   Last
                 </Button>
