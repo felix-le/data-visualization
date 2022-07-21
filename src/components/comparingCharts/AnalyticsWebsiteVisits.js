@@ -7,15 +7,12 @@ import { BaseOptionChart } from './chart';
 
 // ----------------------------------------------------------------------
 
-export default function AnalyticsWebsiteVisits({ data }) {
+export default function AnalyticsWebsiteVisits({ data, labels }) {
   const chartOptions = merge(BaseOptionChart(), {
     stroke: { width: [0, 5] },
     plotOptions: { bar: { columnWidth: '14%' } },
     fill: { type: ['solid', 'solid'] },
-    labels: [
-      0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-      21, 22, 23,
-    ],
+    labels: labels,
     xaxis: { type: 'hour' },
     tooltip: {
       enabled: false,

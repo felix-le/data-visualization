@@ -8,7 +8,7 @@ import { EventContext } from './EventModuleWithContext';
 
 // components
 import Box from '@mui/material/Box';
-import EventSearchBar from './EventSearchBar';
+import SearchBar from '../SearchBar';
 
 import EventDailySingleTable from './EventDailySingleTable';
 import { flipSortDirection } from '../constants';
@@ -53,7 +53,7 @@ function EventDailyTable() {
             {' '}
             Table event Daily Data{' '}
           </Typography>
-          <EventSearchBar
+          <SearchBar
             searchTerm={searchEventDailyTerm}
             setSearchTerm={setSearchEventDailyTerm}
           />

@@ -223,9 +223,7 @@ const EventWithContext = ({ eventDaily, eventHourly }) => {
       ({ events }) => events
     ),
   };
-  const hourComparingChartData = isCompare
-    ? [eventsForEachHourComparingDefault, eventsForEachHourComparingSecond]
-    : [eventsForEachHourComparingDefault];
+  const hourComparingChartData = [eventsForEachHourComparingDefault];
 
   const { Provider } = EventContext;
 
@@ -267,6 +265,10 @@ const EventWithContext = ({ eventDaily, eventHourly }) => {
     setSortEventHourlyDirection,
     searchEventHourlyTerm,
     setSearchEventHourlyTerm,
+
+    // diagram
+    eventsForEachHourComparingDefault,
+    eventsForEachHourComparingSecond,
   };
 
   return (

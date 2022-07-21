@@ -8,7 +8,7 @@ import { EventContext } from './EventModuleWithContext';
 
 // components
 import Box from '@mui/material/Box';
-import EventSearchBar from './EventSearchBar';
+import SearchBar from '../SearchBar';
 
 import EventHourlySingleTable from './EventHourlySingleTable';
 import { flipSortDirection } from '../constants';
@@ -53,7 +53,7 @@ function EventHourlyTable() {
             {' '}
             Table event Hourly Data{' '}
           </Typography>
-          <EventSearchBar
+          <SearchBar
             searchTerm={searchEventHourlyTerm}
             setSearchTerm={setSearchEventHourlyTerm}
           />

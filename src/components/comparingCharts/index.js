@@ -3,3 +3,4 @@ export { default as AnalyticsWebsiteVisits } from './AnalyticsWebsiteVisits';
 export { default as AnalyticsWidgetSummary } from './AnalyticsWidgetSummary';
 export { default as AnalyticsCurrentSubject } from './AnalyticsCurrentSubject';
 export { default as AnalyticsConversionRates } from './AnalyticsConversionRates';
+export { default as AppAreaInstalled } from './AppAreaInstalled';

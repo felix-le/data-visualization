@@ -85,7 +85,7 @@ function HomePage() {
             Question 1: Client-side general chart visualizations
           </Link>{' '}
           <br />
-          <Link to='/table'> Question 2: Client-side data table</Link>
+          <Link to='/stats'> Question 2: Client-side data table</Link>
           <br />
           <Link to='/geo'>Question 3: Geo</Link>
         </div>
