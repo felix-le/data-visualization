@@ -24,7 +24,7 @@ function CompareSection() {
     <>
       <Box sx={{ textAlign: 'center', mb: 2 }}>
         <Typography variant='h5' className='text-center'>
-          Is compared?
+          Compare
         </Typography>
         <Switch
           checked={isCompare}
