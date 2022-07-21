@@ -18,10 +18,11 @@ User can choose type data to visualize
 * eventHourly: date + hour + number events
 
 The latest day is 2017-01-01
-The newest day is 2017-02-11
+The newest day is 2017-03-11
 
 ## Compare single day vs single day (eventDaily)
 
 ## **The flow**
 
 1. By default, the visualization will be shown whole time period.
+2. The time will effect the data that is shown for the visualization + data table.

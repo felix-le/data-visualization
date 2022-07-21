@@ -1,6 +1,6 @@
 import axios from 'axios';
 const axiosInstance = axios.create({
-  baseURL: 'http://localhost:5555/',
+  baseURL: 'https://basalt-ultra-shoulder.glitch.me/',
   responseType: 'json',
 });
 
