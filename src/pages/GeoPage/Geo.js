@@ -1,6 +1,7 @@
 import React from 'react';
 import Mapbox from '../../components/Mapbox';
 import { useSelector } from 'react-redux';
+import Layout from '../../components/Layout';
 
 function convertDataToGeoJSON(data) {
   const myGeoJSON = {};
@@ -28,7 +29,11 @@ function Geo() {
   const { poi } = useSelector((state) => state.pois);
   const data = convertDataToGeoJSON(poi);
 
-  return <Mapbox data={data} />;
+  return (
+    <Layout>
+      <Mapbox data={data} />
+    </Layout>
+  );
 }
 
 export default Geo;
