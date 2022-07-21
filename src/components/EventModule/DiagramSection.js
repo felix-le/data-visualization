@@ -19,7 +19,6 @@ function DiagramSection() {
     startComparedDate,
     totalEventsComparing,
     periodTimeDefault,
-    hourComparingChartData,
     eventsForEachHourComparingDefault,
     eventsForEachHourComparingSecond,
   } = useContext(EventContext);
