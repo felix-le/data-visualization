@@ -37,6 +37,17 @@ const STATS_DAILY_SORTING_CATEGORIES = {
   STATS_DAILY_CR: 'STATS_DAILY_CR',
 };
 
+const STATS_HOURLY_SORTING_CATEGORIES = {
+  // date, hour, impressions, clicks, revenue, ctr, cr,
+  STATS_HOURLY_DATE: 'STATS_HOURLY_DATE',
+  STATS_HOURLY_HOUR: 'STATS_HOURLY_HOUR',
+  STATS_HOURLY_IMPRESSIONS: 'STATS_HOURLY_IMPRESSIONS',
+  STATS_HOURLY_CLICKS: 'STATS_HOURLY_CLICKS',
+  STATS_HOURLY_REVENUE: 'STATS_HOURLY_REVENUE',
+  STATS_HOURLY_CTR: 'STATS_HOURLY_CTR',
+  STATS_HOURLY_CR: 'STATS_HOURLY_CR',
+};
+
 const SORT_DIRECTION = {
   ASC: 'ASCENDING',
   DESC: 'DESCENDING',
@@ -76,6 +87,37 @@ const STATS_DAILY_TABLE_HEADER = [
   },
 ];
 
+const STATS_HOURLY_TABLE_HEADER = [
+  {
+    key: 'STATS_HOURLY_DATE',
+    label: 'Date',
+  },
+  {
+    key: 'STATS_HOURLY_HOUR',
+    label: 'Hour',
+  },
+  {
+    key: 'STATS_HOURLY_IMPRESSIONS',
+    label: 'Impressions',
+  },
+  {
+    key: 'STATS_HOURLY_CLICKS',
+    label: 'Clicks',
+  },
+  {
+    key: 'STATS_HOURLY_REVENUE',
+    label: 'Revenue',
+  },
+  {
+    key: 'STATS_HOURLY_CTR',
+    label: 'CR',
+  },
+  {
+    key: 'STATS_HOURLY_CR',
+    label: 'CTR',
+  },
+];
+
 export {
   maxDate,
   minDate,
@@ -94,4 +136,7 @@ export {
 
   STATS_DAILY_SORTING_CATEGORIES,
   STATS_DAILY_TABLE_HEADER,
+  // STATS HOURLY
+  STATS_HOURLY_SORTING_CATEGORIES,
+  STATS_HOURLY_TABLE_HEADER,
 };

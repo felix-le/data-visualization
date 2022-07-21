@@ -14,8 +14,8 @@ import Table from './Table';
 
 import {
   flipSortDirection,
-  STATS_DAILY_TABLE_HEADER,
-  STATS_DAILY_SORTING_CATEGORIES,
+  STATS_HOURLY_TABLE_HEADER,
+  STATS_HOURLY_SORTING_CATEGORIES,
 } from '../constants';
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -28,24 +28,24 @@ const Item = styled(Paper)(({ theme }) => ({
 
 function StatsDailyTable() {
   const {
-    statsDailyTableDataControl,
-    setStatsDailyTableDataControl,
+    statsHourlyTableDataControl,
+    setStatsHourlyTableDataControl,
     // Compare data
     isCompare,
-    finalDisplayStatsDaily,
-    finalDisplayStatsDailyCompering,
-    statsDailySearch,
-    setStatsDailySearch,
+    finalDisplayStatsHourly,
+    statsHourlySearch,
+    setStatsHourlySearch,
+    finalDisplayStatsHourlyCompering,
   } = useContext(StatsContext);
 
-  const { sortStatsDailyCol, sortStatsDailyDirection } =
-    statsDailyTableDataControl;
+  const { sortStatsHourlyCol, sortStatsHourlyDirection } =
+    statsHourlyTableDataControl;
 
   function _handleChangeSort(col) {
-    setStatsDailyTableDataControl({
-      ...statsDailyTableDataControl,
-      sortStatsDailyCol: col,
-      sortStatsDailyDirection: flipSortDirection(sortStatsDailyDirection),
+    setStatsHourlyTableDataControl({
+      ...statsHourlyTableDataControl,
+      sortStatsHourlyCol: col,
+      sortStatsHourlyDirection: flipSortDirection(sortStatsHourlyDirection),
     });
   }
 
@@ -61,22 +61,22 @@ function StatsDailyTable() {
         <Box component='span' sx={{ p: 2, textAlign: 'center', width: '100%' }}>
           <Typography variant='h5' align='center' sx={{ mb: 2 }}>
             {' '}
-            Stats Daily Data Table{' '}
+            Stats Hourly Data Table{' '}
           </Typography>
           <SearchBar
-            searchTerm={statsDailySearch}
-            setSearchTerm={setStatsDailySearch}
+            searchTerm={statsHourlySearch}
+            setSearchTerm={setStatsHourlySearch}
           />
         </Box>
         <Grid item xs={isCompare ? 6 : 12}>
           <Item>
             <Table
               handleChangeSort={_handleChangeSort}
-              dataBody={finalDisplayStatsDaily}
-              headers={STATS_DAILY_TABLE_HEADER}
-              currentSortCol={sortStatsDailyCol}
-              currentSortDir={sortStatsDailyDirection}
-              categories={STATS_DAILY_SORTING_CATEGORIES}
+              dataBody={finalDisplayStatsHourly}
+              headers={STATS_HOURLY_TABLE_HEADER}
+              currentSortCol={sortStatsHourlyCol}
+              currentSortDir={sortStatsHourlyDirection}
+              categories={STATS_HOURLY_SORTING_CATEGORIES}
             />
           </Item>
         </Grid>
@@ -86,11 +86,11 @@ function StatsDailyTable() {
               <Item>
                 <Table
                   handleChangeSort={_handleChangeSort}
-                  dataBody={finalDisplayStatsDailyCompering}
-                  headers={STATS_DAILY_TABLE_HEADER}
-                  currentSortCol={sortStatsDailyCol}
-                  currentSortDir={sortStatsDailyDirection}
-                  categories={STATS_DAILY_SORTING_CATEGORIES}
+                  dataBody={finalDisplayStatsHourlyCompering}
+                  headers={STATS_HOURLY_TABLE_HEADER}
+                  currentSortCol={sortStatsHourlyCol}
+                  currentSortDir={sortStatsHourlyDirection}
+                  categories={STATS_HOURLY_SORTING_CATEGORIES}
                 />
               </Item>
             </Grid>

@@ -7,7 +7,7 @@ import StatsSummarySection from './StatsSummarySection';
 // import DiagramSection from './DiagramSection';
 // // Table
 import StatsDailyTable from './StatsDailyTable';
-// import EventHourlyTable from './EventHourlyTable';
+import StatsHourlyTable from './StatsHourlyTable';
 function StatsModule() {
   return (
     <Container maxWidth='xl'>
@@ -19,7 +19,7 @@ function StatsModule() {
         <StatsSummarySection />
         {/* Table */}
         <StatsDailyTable />
-        {/* <EventHourlyTable /> */}
+        <StatsHourlyTable />
         {/* Compare for daily events */}
         {/* <DiagramSection /> */}
       </Grid>

@@ -24,21 +24,22 @@ function getMaxStatsDaily(statsDaily, property) {
 //   }, 0);
 // }
 
-function getStatsDailyPeriod(statsDaily, startDate, endDate) {
+function getStatsDataPeriod(data, startDate, endDate) {
   const _startDate = dateComparingFormat(startDate);
   const _endDate = dateComparingFormat(endDate);
-  const _eventDaily = statsDaily.filter((event) => {
+  const _eventDaily = data.filter((event) => {
     const _eventDate = dateComparingFormat(event.date);
 
     return _eventDate >= _startDate && _eventDate <= _endDate;
   });
   return _eventDaily;
 }
+
 export {
   // getTotalDailyEvents,
   // getMaxEventsDaily,
   // getTotalDaysWithMinValues,
   getSumStatsDaily,
-  getStatsDailyPeriod,
+  getStatsDataPeriod,
   getMaxStatsDaily,
 };

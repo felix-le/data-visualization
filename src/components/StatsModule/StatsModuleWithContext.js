@@ -1,18 +1,23 @@
 import React, { createContext, useState, useMemo } from 'react';
 
-import { statsMinDate, statsMaxDate, getDayBetween } from '../constants';
+import {
+  statsMinDate,
+  statsMaxDate,
+  // getDayBetween,
+  STATS_HOURLY_SORTING_CATEGORIES,
+} from '../constants';
 
 import StatsModule from './StatsModule';
 
 import getTableStatsDaily from './utils/getTableStatsDaily';
-// import getTableEventHourly from './utils/getTableEventHourly';
+import getTableStatsHourly from './utils/getTableStatsHourly';
 
 import {
   // getTotalDailyEvents,
   // getMaxEventsDaily,
   // getTotalDaysWithMinValues,
   getSumStatsDaily,
-  getStatsDailyPeriod,
+  getStatsDataPeriod,
 } from './utils/getStatsDaily';
 
 // import {
@@ -39,7 +44,7 @@ const EventWithContext = ({ statsDaily, statsHourly }) => {
   const [isCompare, setIsCompare] = useState(false);
 
   // Default Data
-  const statsDailyDefaultData = getStatsDailyPeriod(
+  const statsDailyDefaultData = getStatsDataPeriod(
     statsDaily,
     startFirstDate.firstStart,
     startFirstDate.firstEnd
@@ -68,11 +73,19 @@ const EventWithContext = ({ statsDaily, statsHourly }) => {
   );
 
   // Comparing Data
-  const statsDailyComperingData = getStatsDailyPeriod(
+  const statsDailyComperingData = getStatsDataPeriod(
     statsDaily,
     startComparedDate.secondStart,
     startComparedDate.secondEnd
-  );
+  ).map((stat) => {
+    // add cr and ctr
+    const newObj = {
+      ...stat,
+      cr: parseFloat(((stat.revenue / stat.impressions) * 100).toFixed(2)),
+      ctr: parseFloat(((stat.clicks / stat.impressions) * 100).toFixed(2)),
+    };
+    return newObj;
+  });
 
   // STATS DAILY TABLE DATA
   const [statsDailyTableDataControl, setStatsDailyTableDataControl] = useState({
@@ -140,12 +153,77 @@ const EventWithContext = ({ statsDaily, statsHourly }) => {
     ]
   );
 
-  const defaultPeriod = getDayBetween(
-    startFirstDate.firstStart,
-    startFirstDate.firstEnd
-  );
+  // const defaultPeriod = getDayBetween(
+  //   startFirstDate.firstStart,
+  //   startFirstDate.firstEnd
+  // );
 
   // ///////////// Working on Event Hourly
+
+  const statsHourlyDefaultData = getStatsDataPeriod(
+    statsHourly,
+    startFirstDate.firstStart,
+    startFirstDate.firstEnd
+  ).map((stat) => {
+    // add cr and ctr
+    const newObj = {
+      ...stat,
+      cr: parseFloat(((stat.revenue / stat.impressions) * 100).toFixed(2)),
+      ctr: parseFloat(((stat.clicks / stat.impressions) * 100).toFixed(2)),
+    };
+    return newObj;
+  });
+
+  const statsHourlyComperingData = getStatsDataPeriod(
+    statsHourly,
+    startComparedDate.secondStart,
+    startComparedDate.secondEnd
+  ).map((stat) => {
+    // add cr and ctr
+    const newObj = {
+      ...stat,
+      cr: parseFloat(((stat.revenue / stat.impressions) * 100).toFixed(2)),
+      ctr: parseFloat(((stat.clicks / stat.impressions) * 100).toFixed(2)),
+    };
+    return newObj;
+  });
+
+  const [statsHourlyTableDataControl, setStatsHourlyTableDataControl] =
+    useState({
+      sortStatsHourlyCol: STATS_HOURLY_SORTING_CATEGORIES.STATS_HOURLY_DATE,
+      sortStatsHourlyDirection: SORT_DIRECTION.ASC,
+    });
+  const [statsHourlySearch, setStatsHourlySearch] = useState('');
+  const finalDisplayStatsHourly = useMemo(
+    () =>
+      getTableStatsHourly(
+        statsHourlyDefaultData,
+        statsHourlySearch,
+        statsHourlyTableDataControl.sortStatsHourlyCol,
+        statsHourlyTableDataControl.sortStatsHourlyDirection
+      ),
+    [
+      statsHourlyDefaultData,
+      statsHourlySearch,
+      statsHourlyTableDataControl.sortStatsHourlyCol,
+      statsHourlyTableDataControl.sortStatsHourlyDirection,
+    ]
+  );
+  const finalDisplayStatsHourlyCompering = useMemo(
+    () =>
+      getTableStatsHourly(
+        statsHourlyComperingData,
+        statsHourlySearch,
+        statsHourlyTableDataControl.sortStatsHourlyCol,
+        statsHourlyTableDataControl.sortStatsHourlyDirection
+      ),
+    [
+      statsHourlyComperingData,
+      statsHourlySearch,
+      statsHourlyTableDataControl.sortStatsHourlyCol,
+      statsHourlyTableDataControl.sortStatsHourlyDirection,
+    ]
+  );
 
   // // EVENT HOURLY TABLE DATA
   // const [sortEventHourlyCol, setEventHourlySortCol] = useState(
@@ -259,11 +337,16 @@ const EventWithContext = ({ statsDaily, statsHourly }) => {
     totalDailyComperingRevenue,
     overallDailyComperingCTR,
     overallDailyComperingCR,
+    // HOURLY TABLE
+    statsHourlyDefaultData,
+    statsHourlyComperingData,
+    statsHourlySearch,
+    setStatsHourlySearch,
+    finalDisplayStatsHourlyCompering,
+    statsHourlyTableDataControl,
+    setStatsHourlyTableDataControl,
+    finalDisplayStatsHourly,
   };
-  console.log(
-    '🚀 ~ file: StatsModuleWithContext.js ~ line 238 ~ EventWithContext ~ finalDisplayStatsDaily',
-    finalDisplayStatsDaily
-  );
 
   return (
     <Provider value={value}>
