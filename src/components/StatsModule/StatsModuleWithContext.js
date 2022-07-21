@@ -76,22 +76,22 @@ const EventWithContext = ({ statsDaily, statsHourly }) => {
 
   // STATS DAILY TABLE DATA
   const [statsDailyTableDataControl, setStatsDailyTableDataControl] = useState({
-    searchStatsDaily: '',
     sortStatsDailyCol: STATS_DAILY_SORTING_CATEGORIES.STATS_DAILY_DATE,
     sortStatsDailyDirection: SORT_DIRECTION.ASC,
   });
+  const [statsDailySearch, setStatsDailySearch] = useState('');
 
   const finalDisplayStatsDailyCompering = useMemo(
     () =>
       getTableStatsDaily(
         statsDailyComperingData,
-        statsDailyTableDataControl.searchStatsDaily,
+        statsDailySearch,
         statsDailyTableDataControl.sortStatsDailyCol,
         statsDailyTableDataControl.sortStatsDailyDirection
       ),
     [
       statsDailyComperingData,
-      statsDailyTableDataControl.searchStatsDaily,
+      statsDailySearch,
       statsDailyTableDataControl.sortStatsDailyCol,
       statsDailyTableDataControl.sortStatsDailyDirection,
     ]
@@ -128,13 +128,13 @@ const EventWithContext = ({ statsDaily, statsHourly }) => {
     () =>
       getTableStatsDaily(
         statsDailyDefaultData,
-        statsDailyTableDataControl.searchStatsDaily,
+        statsDailySearch,
         statsDailyTableDataControl.sortStatsDailyCol,
         statsDailyTableDataControl.sortStatsDailyDirection
       ),
     [
       statsDailyDefaultData,
-      statsDailyTableDataControl.searchStatsDaily,
+      statsDailySearch,
       statsDailyTableDataControl.sortStatsDailyCol,
       statsDailyTableDataControl.sortStatsDailyDirection,
     ]
@@ -234,10 +234,14 @@ const EventWithContext = ({ statsDaily, statsHourly }) => {
   const { Provider } = StatsContext;
 
   const value = {
+    // default
     startFirstDate,
     setStartFirstDate,
     startComparedDate,
     setStartComparedDate,
+    statsDailySearch,
+    setStatsDailySearch,
+    // compare
     isCompare,
     setIsCompare,
     finalDisplayStatsDaily,

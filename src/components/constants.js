@@ -49,6 +49,33 @@ const flipSortDirection = (oldDirection) => {
 
 const ROW_PER_PAGE_DEFAULT = 10;
 
+const STATS_DAILY_TABLE_HEADER = [
+  {
+    key: 'STATS_DAILY_DATE',
+    label: 'Date',
+  },
+  {
+    key: 'STATS_DAILY_IMPRESSIONS',
+    label: 'Impressions',
+  },
+  {
+    key: 'STATS_DAILY_CLICKS',
+    label: 'Clicks',
+  },
+  {
+    key: 'STATS_DAILY_REVENUE',
+    label: 'Revenue',
+  },
+  {
+    key: 'STATS_DAILY_CTR',
+    label: 'CR',
+  },
+  {
+    key: 'STATS_DAILY_CR',
+    label: 'CTR',
+  },
+];
+
 export {
   maxDate,
   minDate,
@@ -66,4 +93,5 @@ export {
   // STATS DAILY
 
   STATS_DAILY_SORTING_CATEGORIES,
+  STATS_DAILY_TABLE_HEADER,
 };

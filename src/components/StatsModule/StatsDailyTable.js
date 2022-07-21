@@ -4,14 +4,19 @@ import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
 
 // Context
-import { EventContext } from './EventModuleWithContext';
+import { StatsContext } from './StatsModuleWithContext';
 
 // components
 import Box from '@mui/material/Box';
 import SearchBar from '../SearchBar';
 
-import EventDailySingleTable from './EventDailySingleTable';
-import { flipSortDirection } from '../constants';
+import Table from './Table';
+
+import {
+  flipSortDirection,
+  STATS_DAILY_TABLE_HEADER,
+  STATS_DAILY_SORTING_CATEGORIES,
+} from '../constants';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -21,22 +26,27 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-function EventDailyTable() {
+function StatsDailyTable() {
   const {
+    statsDailyTableDataControl,
+    setStatsDailyTableDataControl,
     // Compare data
     isCompare,
-    finalDisplayEventDailyDefault,
-    searchEventDailyTerm,
-    setSearchEventDailyTerm,
-    setEventDailySortCol,
-    sortEventDailyDirection,
-    setSortEventDailyDirection,
-    finalDisplayEventDailyComparing,
-  } = useContext(EventContext);
+    finalDisplayStatsDaily,
+    finalDisplayStatsDailyCompering,
+    statsDailySearch,
+    setStatsDailySearch,
+  } = useContext(StatsContext);
+
+  const { sortStatsDailyCol, sortStatsDailyDirection } =
+    statsDailyTableDataControl;
 
   function _handleChangeSort(col) {
-    setEventDailySortCol(col);
-    setSortEventDailyDirection(flipSortDirection(sortEventDailyDirection));
+    setStatsDailyTableDataControl({
+      ...statsDailyTableDataControl,
+      sortStatsDailyCol: col,
+      sortStatsDailyDirection: flipSortDirection(sortStatsDailyDirection),
+    });
   }
 
   return (
@@ -54,15 +64,19 @@ function EventDailyTable() {
             Table event Daily Data{' '}
           </Typography>
           <SearchBar
-            searchTerm={searchEventDailyTerm}
-            setSearchTerm={setSearchEventDailyTerm}
+            searchTerm={statsDailySearch}
+            setSearchTerm={setStatsDailySearch}
           />
         </Box>
         <Grid item xs={isCompare ? 6 : 12}>
           <Item>
-            <EventDailySingleTable
+            <Table
               handleChangeSort={_handleChangeSort}
-              data={finalDisplayEventDailyDefault}
+              dataBody={finalDisplayStatsDaily}
+              headers={STATS_DAILY_TABLE_HEADER}
+              currentSortCol={sortStatsDailyCol}
+              currentSortDir={sortStatsDailyDirection}
+              categories={STATS_DAILY_SORTING_CATEGORIES}
             />
           </Item>
         </Grid>
@@ -70,9 +84,13 @@ function EventDailyTable() {
           <>
             <Grid item xs={6}>
               <Item>
-                <EventDailySingleTable
+                <Table
                   handleChangeSort={_handleChangeSort}
-                  data={finalDisplayEventDailyComparing}
+                  dataBody={finalDisplayStatsDailyCompering}
+                  headers={STATS_DAILY_TABLE_HEADER}
+                  currentSortCol={sortStatsDailyCol}
+                  currentSortDir={sortStatsDailyDirection}
+                  categories={STATS_DAILY_SORTING_CATEGORIES}
                 />
               </Item>
             </Grid>
@@ -83,4 +101,4 @@ function EventDailyTable() {
   );
 }
 
-export default EventDailyTable;
+export default StatsDailyTable;

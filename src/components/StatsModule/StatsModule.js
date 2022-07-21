@@ -6,7 +6,7 @@ import CompareSection from './CompareSection';
 import StatsSummarySection from './StatsSummarySection';
 // import DiagramSection from './DiagramSection';
 // // Table
-// import EventDailyTable from './EventDailyTable';
+import StatsDailyTable from './StatsDailyTable';
 // import EventHourlyTable from './EventHourlyTable';
 function StatsModule() {
   return (
@@ -18,7 +18,7 @@ function StatsModule() {
       <Grid container spacing={3}>
         <StatsSummarySection />
         {/* Table */}
-        {/* <EventDailyTable /> */}
+        <StatsDailyTable />
         {/* <EventHourlyTable /> */}
         {/* Compare for daily events */}
         {/* <DiagramSection /> */}
