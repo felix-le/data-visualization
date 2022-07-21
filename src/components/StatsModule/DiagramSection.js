@@ -4,52 +4,62 @@ import { dateComparingFormat } from '../constants';
 
 // components
 import {
-  AnalyticsCurrentVisits,
-  AnalyticsWebsiteVisits,
+  AnalyticsConversionRates,
+  AppAreaInstalled,
 } from '../../components/comparingCharts';
 
-import { EventContext } from './EventModuleWithContext';
+import { StatsContext } from './StatsModuleWithContext';
 function DiagramSection() {
   const {
-    totalEvents,
-    totalDaysWithMinValues,
-    startFirstDate,
-    // Compare data
+    averageCRHourlyDefault,
+    averageCRHourlyCompering,
     isCompare,
-    startComparedDate,
-    totalEventsComparing,
-    periodTimeDefault,
-    hourComparingChartData,
-  } = useContext(EventContext);
+    crPerDay,
+    ctrPerDay,
+    dateForDiagramTimeLine,
+  } = useContext(StatsContext);
+  const formattedDataForCVRDiagram = isCompare
+    ? [
+        {
+          data: averageCRHourlyDefault,
+        },
+        {
+          data: averageCRHourlyCompering,
+        },
+      ]
+    : [
+        {
+          data: averageCRHourlyDefault,
+        },
+      ];
+  const formattedDataForAppAreaInstalled = [
+    {
+      data: [
+        { name: 'Convertion rate Per Day', data: crPerDay },
+        { name: 'CTR Per Day', data: ctrPerDay },
+      ],
+    },
+  ];
+
   return (
     <>
-      {isCompare ? (
-        <Grid item xs={12} md={6} lg={4}>
-          <AnalyticsCurrentVisits
-            labels={[
-              `${dateComparingFormat(
-                startFirstDate.firstStart
-              )} - ${dateComparingFormat(startFirstDate.firstEnd)}`,
-              `${dateComparingFormat(
-                startComparedDate.secondStart
-              )} - ${dateComparingFormat(startComparedDate.secondEnd)}`,
-            ]}
-            data={[totalEvents, totalEventsComparing]}
-            title='Compare Total Events'
-          />
-        </Grid>
-      ) : (
-        <Grid item xs={12} md={6} lg={4}>
-          <AnalyticsCurrentVisits
-            labels={['Total days with min values', 'Total days']}
-            data={[totalDaysWithMinValues, periodTimeDefault]}
-            title='Total days with min values / total days'
-          />
-        </Grid>
-      )}
-
-      <Grid item xs={12} md={6} lg={8}>
-        <AnalyticsWebsiteVisits data={hourComparingChartData} />
+      <Grid item xs={12}>
+        <AnalyticsConversionRates
+          categories={[
+            0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18,
+            19, 20, 21, 22, 23,
+          ]}
+          data={formattedDataForCVRDiagram}
+          title='Average Conversion Rate Per Hour'
+        />
+      </Grid>
+      <Grid item xs={12}>
+        {/* compare avenue vs click base on time */}
+        <AppAreaInstalled
+          title='Revenue / Clicks'
+          categories={dateForDiagramTimeLine}
+          dataShow={formattedDataForAppAreaInstalled}
+        />
       </Grid>
     </>
   );

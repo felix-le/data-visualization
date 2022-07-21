@@ -11,18 +11,6 @@ function getSumStatsDaily(statsDaily, property) {
 function getMaxStatsDaily(statsDaily, property) {
   return maxBy(statsDaily, property);
 }
-// function getMaxEventsDaily(eventDaily) {
-//   return maxBy(eventDaily, 'events');
-// }
-
-// function getTotalDaysWithMinValues(eventDaily, MINEVENTSPERDAY) {
-//   return eventDaily.reduce((accumulator, object) => {
-//     if (object?.events < MINEVENTSPERDAY) {
-//       return accumulator + 1;
-//     }
-//     return accumulator;
-//   }, 0);
-// }
 
 function getStatsDataPeriod(data, startDate, endDate) {
   const _startDate = dateComparingFormat(startDate);
@@ -35,11 +23,4 @@ function getStatsDataPeriod(data, startDate, endDate) {
   return _eventDaily;
 }
 
-export {
-  // getTotalDailyEvents,
-  // getMaxEventsDaily,
-  // getTotalDaysWithMinValues,
-  getSumStatsDaily,
-  getStatsDataPeriod,
-  getMaxStatsDaily,
-};
+export { getSumStatsDaily, getStatsDataPeriod, getMaxStatsDaily };

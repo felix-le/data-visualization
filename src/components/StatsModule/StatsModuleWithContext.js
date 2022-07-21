@@ -3,28 +3,18 @@ import React, { createContext, useState, useMemo } from 'react';
 import {
   statsMinDate,
   statsMaxDate,
-  // getDayBetween,
   STATS_HOURLY_SORTING_CATEGORIES,
 } from '../constants';
 
+import { getAverageCVR } from './utils/getStatsHour';
+
+// components
 import StatsModule from './StatsModule';
 
 import getTableStatsDaily from './utils/getTableStatsDaily';
 import getTableStatsHourly from './utils/getTableStatsHourly';
 
-import {
-  // getTotalDailyEvents,
-  // getMaxEventsDaily,
-  // getTotalDaysWithMinValues,
-  getSumStatsDaily,
-  getStatsDataPeriod,
-} from './utils/getStatsDaily';
-
-// import {
-//   getHourWithMaxEvents,
-//   getEventsHourlyPeriodTime,
-//   getEventsForEachHour,
-// } from './utils/getEventHour';
+import { getSumStatsDaily, getStatsDataPeriod } from './utils/getStatsDaily';
 
 import { STATS_DAILY_SORTING_CATEGORIES, SORT_DIRECTION } from '../constants';
 
@@ -122,7 +112,6 @@ const EventWithContext = ({ statsDaily, statsHourly }) => {
     finalDisplayStatsDailyCompering,
     'revenue'
   );
-  // parseFloat(((stat.revenue / stat.impressions) * 100).toFixed(2))
   const overallDailyComperingCTR =
     parseFloat(
       (
@@ -152,11 +141,6 @@ const EventWithContext = ({ statsDaily, statsHourly }) => {
       statsDailyTableDataControl.sortStatsDailyDirection,
     ]
   );
-
-  // const defaultPeriod = getDayBetween(
-  //   startFirstDate.firstStart,
-  //   startFirstDate.firstEnd
-  // );
 
   // ///////////// Working on Event Hourly
 
@@ -224,90 +208,18 @@ const EventWithContext = ({ statsDaily, statsHourly }) => {
       statsHourlyTableDataControl.sortStatsHourlyDirection,
     ]
   );
+  // Get average CR each hour
+  const averageCRHourlyDefault = getAverageCVR(finalDisplayStatsHourly).map(
+    ({ cr }) => cr
+  );
 
-  // // EVENT HOURLY TABLE DATA
-  // const [sortEventHourlyCol, setEventHourlySortCol] = useState(
-  //   EVENT_HOURLY_SORTING_CATEGORIES.EVENT_HOURLY_DATE
-  // );
+  const averageCRHourlyCompering = getAverageCVR(
+    finalDisplayStatsHourlyCompering
+  ).map(({ cr }) => cr);
 
-  // const [sortEventHourlyDirection, setSortEventHourlyDirection] = useState(
-  //   SORT_DIRECTION.ASC
-  // );
-  // const [searchEventHourlyTerm, setSearchEventHourlyTerm] = useState('');
-
-  // // get the hour with the most events
-  // const periodHourlyDefaultData = getEventsHourlyPeriodTime(
-  //   eventHourly,
-  //   startFirstDate.firstStart,
-  //   startFirstDate.firstEnd
-  // );
-
-  // const periodHourlyComparingData = getEventsHourlyPeriodTime(
-  //   eventHourly,
-  //   startComparedDate.secondStart,
-  //   startComparedDate.secondEnd
-  // );
-  // const finalDisplayEventHourlyDefault = useMemo(
-  //   () =>
-  //     getTableEventHourly(
-  //       periodHourlyDefaultData,
-  //       searchEventHourlyTerm,
-  //       sortEventHourlyCol,
-  //       sortEventHourlyDirection
-  //     ),
-  //   [
-  //     periodHourlyDefaultData,
-  //     searchEventHourlyTerm,
-  //     sortEventHourlyCol,
-  //     sortEventHourlyDirection,
-  //   ]
-  // );
-
-  // const finalDisplayEventHourlyComparing = useMemo(
-  //   () =>
-  //     getTableEventHourly(
-  //       periodHourlyComparingData,
-  //       searchEventHourlyTerm,
-  //       sortEventHourlyCol,
-  //       sortEventHourlyDirection
-  //     ),
-  //   [
-  //     periodHourlyComparingData,
-  //     searchEventHourlyTerm,
-  //     sortEventHourlyCol,
-  //     sortEventHourlyDirection,
-  //   ]
-  // );
-
-  // // Working on Event Hourly Table Data
-
-  // // Get hour with max events
-  // const hourWithMaxDefaultEvents = getHourWithMaxEvents(
-  //   periodHourlyDefaultData
-  // );
-
-  // const hourWithMaxCompareEvents = getHourWithMaxEvents(
-  //   periodHourlyComparingData
-  // );
-
-  // // genarate comparing chart data for hourly
-  // const eventsForEachHourComparingDefault = {
-  //   name: 'Based period',
-  //   type: 'column',
-  //   data: getEventsForEachHour(periodHourlyDefaultData).map(
-  //     ({ events }) => events
-  //   ),
-  // };
-  // const eventsForEachHourComparingSecond = {
-  //   name: 'Coparing period',
-  //   type: 'line',
-  //   data: getEventsForEachHour(periodHourlyComparingData).map(
-  //     ({ events }) => events
-  //   ),
-  // };
-  // const hourComparingChartData = isCompare
-  //   ? [eventsForEachHourComparingDefault, eventsForEachHourComparingSecond]
-  //   : [eventsForEachHourComparingDefault];
+  const crPerDay = finalDisplayStatsDaily.map(({ cr }) => cr);
+  const ctrPerDay = finalDisplayStatsDaily.map(({ ctr }) => ctr);
+  const dateForDiagramTimeLine = finalDisplayStatsDaily.map(({ date }) => date);
 
   const { Provider } = StatsContext;
 
@@ -346,6 +258,13 @@ const EventWithContext = ({ statsDaily, statsHourly }) => {
     statsHourlyTableDataControl,
     setStatsHourlyTableDataControl,
     finalDisplayStatsHourly,
+
+    // diagram
+    averageCRHourlyDefault,
+    averageCRHourlyCompering,
+    crPerDay,
+    ctrPerDay,
+    dateForDiagramTimeLine,
   };
 
   return (

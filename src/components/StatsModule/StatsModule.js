@@ -4,7 +4,7 @@ import { Grid, Container, Typography } from '@mui/material';
 // sections
 import CompareSection from './CompareSection';
 import StatsSummarySection from './StatsSummarySection';
-// import DiagramSection from './DiagramSection';
+import DiagramSection from './DiagramSection';
 // // Table
 import StatsDailyTable from './StatsDailyTable';
 import StatsHourlyTable from './StatsHourlyTable';
@@ -21,7 +21,7 @@ function StatsModule() {
         <StatsDailyTable />
         <StatsHourlyTable />
         {/* Compare for daily events */}
-        {/* <DiagramSection /> */}
+        <DiagramSection />
       </Grid>
     </Container>
   );

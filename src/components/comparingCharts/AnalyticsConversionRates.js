@@ -13,43 +13,26 @@ const CHART_DATA = [
   { data: [400, 430, 448, 470, 540, 580, 690, 1100, 1200, 1380] },
 ];
 
-export default function AnalyticsConversionRates() {
+export default function AnalyticsConversionRates({ title, categories, data }) {
   const chartOptions = merge(BaseOptionChart(), {
     tooltip: {
-      marker: { show: false },
-      y: {
-        formatter: (seriesName) => fNumber(seriesName),
-        title: {
-          formatter: () => '',
-        },
-      },
+      enable: false,
     },
     plotOptions: {
       bar: { horizontal: true, barHeight: '28%', borderRadius: 2 },
     },
     xaxis: {
-      categories: [
-        'Italy',
-        'Japan',
-        'China',
-        'Canada',
-        'France',
-        'Germany',
-        'South Korea',
-        'Netherlands',
-        'United States',
-        'United Kingdom',
-      ],
+      categories: categories,
     },
   });
 
   return (
     <Card>
-      <CardHeader title='Conversion Rates' subheader='(+43%) than last year' />
+      <CardHeader title={title} />
       <Box sx={{ mx: 3 }} dir='ltr'>
         <ReactApexChart
           type='bar'
-          series={CHART_DATA}
+          series={data}
           options={chartOptions}
           height={364}
         />
