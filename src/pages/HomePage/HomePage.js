@@ -88,7 +88,9 @@ function HomePage() {
         <div className={classes.overlay}></div>
         <div className={classes.heroContent}>
           <Typography variant='h1'>We will make it together</Typography>
-          <Typography variant='h3'>Welcome to home, my teammate!</Typography>
+          <Typography variant='h3' style={{ fontWeight: 'normal' }}>
+            Welcome to <strong>home</strong>, my <strong>teammate!</strong>
+          </Typography>
           <Typography variant='h5'>Click to checkout our reports</Typography>
           <div className={classes.questionWrapper}>
             <Button variant='contained' color='primary'>
