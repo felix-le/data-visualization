@@ -1,8 +1,8 @@
 import React, { useEffect, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { Typography, Button } from '@mui/material';
 
-import { Container } from '@mui/system';
 // Api
 import { getEventHourlyApi, getEDailyApi } from '../../api/getEvents';
 
@@ -10,6 +10,7 @@ import { getStatsHourlyApi, getStatsDailyApi } from '../../api/getStats';
 
 import { getPoiApi } from '../../api/getPoiApi';
 
+import { useStyles } from './styles';
 // Redux
 import {
   getEventHourly,
@@ -25,11 +26,11 @@ import { getPoi } from '../../store/actions/poi.actions';
 
 //Components
 
-import Navbar from '../../components/NavBar';
+import video from './homepageVideo.mp4';
 
 function HomePage() {
   const dispatch = useDispatch();
-
+  const classes = useStyles();
   // Events
   const _getEventHourly = useCallback(async () => {
     const response = await getEventHourlyApi();
@@ -74,22 +75,45 @@ function HomePage() {
 
   return (
     <>
-      <Navbar />
-
-      <Container>
-        <h1>Thank you for giving me a chance to join your team</h1>
-        <p>Please check answers</p>
-        <div className='question-wrapper'>
-          <Link to='/events'>
-            {' '}
-            Question 1: Client-side general chart visualizations
-          </Link>{' '}
-          <br />
-          <Link to='/stats'> Question 2: Client-side data table</Link>
-          <br />
-          <Link to='/geo'>Question 3: Geo</Link>
+      <div className={classes.homeHero}>
+        <video
+          className={classes.homeHeroVideo}
+          loop
+          muted
+          autoPlay
+          controls=''
+        >
+          <source src={video} type='video/mp4' />
+        </video>
+        <div className={classes.overlay}></div>
+        <div className={classes.heroContent}>
+          <Typography variant='h1'>We will make it together</Typography>
+          <Typography variant='h3'>Welcome to home, my teammate!</Typography>
+          <Typography variant='h5'>Click to checkout our reports</Typography>
+          <div className={classes.questionWrapper}>
+            <Button variant='contained' color='primary'>
+              <Link to='/events'>
+                {' '}
+                <Typography variant='h5'> Events </Typography>
+              </Link>{' '}
+            </Button>
+            <br />
+            <Button variant='contained' color='primary'>
+              <Link to='/stats'>
+                {' '}
+                <Typography variant='h5'> stats </Typography>
+              </Link>{' '}
+            </Button>
+            <br />
+            <Button variant='contained' color='primary'>
+              <Link to='/geo'>
+                {' '}
+                <Typography variant='h5'> Geo </Typography>
+              </Link>{' '}
+            </Button>
+          </div>
         </div>
-      </Container>
+      </div>
     </>
   );
 }

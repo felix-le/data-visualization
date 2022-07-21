@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Grid, Container, Typography } from '@mui/material';
 
 // sections
@@ -8,11 +8,30 @@ import DiagramSection from './DiagramSection';
 // Table
 import EventDailyTable from './EventDailyTable';
 import EventHourlyTable from './EventHourlyTable';
+
+//
+import { EventContext } from './EventModuleWithContext';
+import { dateComparingFormat } from '../constants';
 function EventModule() {
+  const { startFirstDate, startComparedDate, isCompare } =
+    useContext(EventContext);
+
+  const startDate = dateComparingFormat(startFirstDate.firstStart);
+  const endDate = dateComparingFormat(startFirstDate.firstEnd);
+  //
+  const startCompareDateFormat = dateComparingFormat(
+    startComparedDate.secondStart
+  );
+  const endCompareDateFormat = dateComparingFormat(startComparedDate.secondEnd);
+
+  const title = isCompare
+    ? `You are viewing report ${startDate} - ${endDate} vs ${startCompareDateFormat} - ${endCompareDateFormat}`
+    : `You are viewing report ${startDate} - ${endDate}`;
+
   return (
     <Container maxWidth='xl'>
-      <Typography variant='h4' align='center' sx={{ mb: 5 }}>
-        Hi, Please check report from 01/01/2017 to 03/11/2017
+      <Typography variant='h4' align='center' sx={{ mb: 3 }}>
+        {title}
       </Typography>
       <CompareSection />
       <Grid container spacing={3}>
