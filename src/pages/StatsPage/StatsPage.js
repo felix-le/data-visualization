@@ -4,7 +4,6 @@ import Layout from '../../components/Layout';
 import StatsModule from '../../components/StatsModule';
 
 function Stats() {
-  // const newstate = useSelector((state) => state);
   const { statsHourly, statsDaily } = useSelector((state) => state.stats);
 
   return (
