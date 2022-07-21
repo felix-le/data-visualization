@@ -1,7 +1,8 @@
 import React from 'react';
+import Mapbox from '../../components/Mapbox';
 
 function Geo() {
-  return <div>Geo</div>;
+  return <Mapbox />;
 }
 
 export default Geo;
