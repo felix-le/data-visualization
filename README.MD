@@ -6,9 +6,9 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ### Live Front end demo:
 
-### Link to Back end server live demo:
+### Link to Back end server live demo: https://basalt-ultra-shoulder.glitch.me/
 
-### Link to Back end Github:
+### Link to Back end Github: https://github.com/felix-le/ws-product-nodejs
 
 ## The flow of the project:
 
