@@ -21,6 +21,12 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     zIndex: '-2',
   },
+  homeIcon: {
+    fontSize: '2rem !important',
+    color: 'coral',
+    marginTop: '15px',
+    marginLeft: '5px',
+  },
   overlay: {
     position: 'absolute',
     display: 'block',
@@ -41,12 +47,27 @@ const useStyles = makeStyles((theme) => ({
     zIndex: '1',
     textAlign: 'center',
     color: '#fff',
+
+    '& h1': {
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      '& svg': {
+        margin: '0 10px',
+        color: 'red',
+      },
+    },
+    '& h3': {
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
   },
   questionWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginTop: theme.spacing(2),
+    marginTop: theme.spacing(5),
 
     '& a': {
       color: theme.palette.info.lighter,

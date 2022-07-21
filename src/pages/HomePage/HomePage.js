@@ -2,10 +2,10 @@ import React, { useEffect, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Typography, Button } from '@mui/material';
-
+import FavoriteIcon from '@mui/icons-material/Favorite';
 // Api
 import { getEventHourlyApi, getEDailyApi } from '../../api/getEvents';
-
+import HomeIcon from '@mui/icons-material/Home';
 import { getStatsHourlyApi, getStatsDailyApi } from '../../api/getStats';
 
 import { getPoiApi } from '../../api/getPoiApi';
@@ -87,9 +87,17 @@ function HomePage() {
         </video>
         <div className={classes.overlay}></div>
         <div className={classes.heroContent}>
-          <Typography variant='h1'>We will make it together</Typography>
+          <Typography variant='h1'>
+            <FavoriteIcon />
+            We will make it together
+            <FavoriteIcon />
+          </Typography>
           <Typography variant='h3' style={{ fontWeight: 'normal' }}>
-            Welcome to <strong>home</strong>, my <strong>teammate!</strong>
+            Welcome to
+            <span>
+              <HomeIcon className={classes.homeIcon} />
+            </span>
+            , my &nbsp;<strong>teammates!</strong>
           </Typography>
           <Typography variant='h5'>Click to checkout our reports</Typography>
           <div className={classes.questionWrapper}>
