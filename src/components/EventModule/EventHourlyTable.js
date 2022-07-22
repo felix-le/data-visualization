@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { Grid, Typography } from '@mui/material';
 import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
-
+import { makeStyles } from '@mui/styles';
 // Context
 import { EventContext } from './EventModuleWithContext';
 
@@ -21,7 +21,15 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
+const useStyles = makeStyles({
+  root: {
+    margin: 0,
+    width: '100%',
+  },
+});
+
 function EventHourlyTable() {
+  const classes = useStyles();
   const {
     // Compare data
     isCompare,
@@ -58,8 +66,8 @@ function EventHourlyTable() {
       <Grid
         container
         rowSpacing={1}
-        sx={{ my: 5 }}
-        columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+        sx={{ my: 5, mx: 0 }}
+        className={classes.root}
       >
         <Box component='span' sx={{ p: 2, textAlign: 'center', width: '100%' }}>
           <Typography variant='h5' align='center' sx={{ mb: 2 }}>

@@ -12,6 +12,10 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 30,
+
+    [theme.breakpoints.down('lg')]: {
+      flexDirection: 'column',
+    },
     '& h5': {
       marginRight: 15,
     },
