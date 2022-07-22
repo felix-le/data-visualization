@@ -1,6 +1,11 @@
+/* eslint-disable import/no-webpack-loader-syntax */
 import * as React from 'react';
 import { useRef } from 'react';
+import ReactMapGL from 'react-map-gl';
 import { Map, Source, Layer } from 'react-map-gl';
+// eslint-disable-next-line import/no-webpack-loader-syntax
+import mapboxgl from 'mapbox-gl';
+// eslint-disable-next-line import/no-webpack-loader-syntax
 import './Mapbox.css';
 import {
   clusterLayer,
@@ -9,6 +14,9 @@ import {
   unclusteredLabelLayer,
 } from './layers';
 
+// eslint-disable-next-line import/no-webpack-loader-syntax
+mapboxgl.workerClass =
+  require('worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker').default;
 const MAPBOX_TOKEN =
   'pk.eyJ1IjoiZmVsaXhsZSIsImEiOiJja21kd2ZqaDUycTFjMnZxcnpjZTA1YTlsIn0.XQWrn5uNVtuBJO-LHBq48A'; // Set your mapbox token here
 

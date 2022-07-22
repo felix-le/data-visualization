@@ -4,7 +4,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ---
 
-### Live Front end demo: https://62d9e39160d1c6120f947cd5--inquisitive-hummingbird-16bca5.netlify.app/
+### Live Front end demo: https://boisterous-tapioca-53798a.netlify.app/
 
 ### Link to Back end server live demo: https://basalt-ultra-shoulder.glitch.me/
 
