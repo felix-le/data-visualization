@@ -97,7 +97,7 @@ function HomePage() {
             <span>
               <HomeIcon className={classes.homeIcon} />
             </span>
-            , my &nbsp;<strong>teammates!</strong>
+            my &nbsp;<strong>teammates!</strong>
           </Typography>
           <Typography variant='h5'>Click to checkout our reports</Typography>
           <div className={classes.questionWrapper}>

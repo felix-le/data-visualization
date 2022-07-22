@@ -61,6 +61,10 @@ const useStyles = makeStyles((theme) => ({
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
+      flexDirection: 'row',
+      [theme.breakpoints.down('md')]: {
+        flexDirection: 'column',
+      },
     },
   },
   questionWrapper: {
