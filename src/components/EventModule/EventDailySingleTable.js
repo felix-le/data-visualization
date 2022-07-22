@@ -30,7 +30,11 @@ function EventDailySingleTable({ data, handleChangeSort, title }) {
 
   return (
     <TableContainer className={styles.tableContainer}>
-      <Typography variant='h3' className={styles.tableTitle}>
+      <Typography
+        variant='h3'
+        className={styles.tableTitle}
+        sx={{ mb: 3, pt: 3 }}
+      >
         {title}
       </Typography>
       <Table aria-label='sticky table' stickyHeader className={styles.table}>

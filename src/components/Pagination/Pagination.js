@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@mui/styles';
 import Button from '@mui/material/Button';
-const paginationStyles = makeStyles({
+const paginationStyles = makeStyles((theme) => ({
   paginationWrapper: {
     display: 'flex',
     flexWrap: 'wrap',
@@ -9,10 +9,17 @@ const paginationStyles = makeStyles({
     alignItems: 'center',
     marginTop: '20px',
     listStyle: 'none',
-
+    marginBottom: '30px',
+    [theme.breakpoints.down('sm')]: {
+      flexDirection: 'column',
+    },
     '& li': {
       listStyle: 'none',
       marginRight: '10px',
+      [theme.breakpoints.down('sm')]: {
+        marginBottom: '10px',
+        marginRight: '0px',
+      },
       '&:last-child': {
         marginRight: '0px',
       },
@@ -27,8 +34,12 @@ const paginationStyles = makeStyles({
     },
     '& .inputPageNumber': {
       maxWidth: '150px',
-      padding: '10px',
+      padding: '6px',
       fontSize: '18px',
+      [theme.breakpoints.down('sm')]: {
+        width: '80px',
+        textAlign: 'center',
+      },
     },
     '& button.disabled': {
       backgroundColor: '#f5f5f5',
@@ -36,7 +47,7 @@ const paginationStyles = makeStyles({
       color: 'black',
     },
   },
-});
+}));
 
 const Pagination = ({
   totalItems,

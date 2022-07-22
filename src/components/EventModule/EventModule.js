@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { Grid, Container, Typography } from '@mui/material';
-
+import { makeStyles } from '@mui/styles';
 // sections
 import CompareSection from './CompareSection';
 import EventSummarySection from './EventSummarySection';
@@ -12,7 +12,19 @@ import EventHourlyTable from './EventHourlyTable';
 //
 import { EventContext } from './EventModuleWithContext';
 import { dateComparingFormat } from '../constants';
+
+const useStyles = makeStyles({
+  root: {
+    margin: '0 !important',
+    width: '100% !important',
+
+    '& .MuiGrid-item': {
+      padding: '20px !important',
+    },
+  },
+});
 function EventModule() {
+  const classes = useStyles();
   const { startFirstDate, startComparedDate, isCompare } =
     useContext(EventContext);
 
@@ -34,7 +46,7 @@ function EventModule() {
         {title}
       </Typography>
       <CompareSection />
-      <Grid container spacing={3}>
+      <Grid container spacing={3} className={classes.root}>
         <EventSummarySection />
         {/* Table */}
         <EventDailyTable />

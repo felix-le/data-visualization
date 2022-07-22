@@ -17,6 +17,9 @@ const themeOptions = {
   shape: { borderRadius: 8 },
   shadows: shadows.dark,
   customShadows: customShadows.dark,
+  styleOverrides: {
+    overflow: 'hidden',
+  },
 };
 
 const theme = createTheme(themeOptions);

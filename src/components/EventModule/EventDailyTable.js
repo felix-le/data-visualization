@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { Grid, Typography } from '@mui/material';
 import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
-
+import { makeStyles } from '@mui/styles';
 // Context
 import { EventContext } from './EventModuleWithContext';
 
@@ -13,15 +13,22 @@ import { dateComparingFormat } from '../constants';
 import EventDailySingleTable from './EventDailySingleTable';
 import { flipSortDirection } from '../constants';
 
+const useStyles = makeStyles({
+  root: {
+    margin: 0,
+    width: '100%',
+  },
+});
+
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
   ...theme.typography.body2,
-  padding: theme.spacing(1),
   textAlign: 'center',
   color: theme.palette.text.secondary,
 }));
 
 function EventDailyTable() {
+  const classes = useStyles();
   const {
     // Compare data
     isCompare,
@@ -60,10 +67,10 @@ function EventDailyTable() {
       <Grid
         container
         rowSpacing={1}
-        sx={{ my: 5 }}
-        columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+        sx={{ my: 5, mx: 0 }}
+        className={classes.root}
       >
-        <Box component='span' sx={{ p: 2, textAlign: 'center', width: '100%' }}>
+        <Box component='span' sx={{ textAlign: 'center', width: '100%' }}>
           <Typography variant='h5' align='center' sx={{ mb: 2 }}>
             {' '}
             Table event Daily Data{' '}
@@ -73,7 +80,7 @@ function EventDailyTable() {
             setSearchTerm={setSearchEventDailyTerm}
           />
         </Box>
-        <Grid item xs={isCompare ? 6 : 12}>
+        <Grid item xs={isCompare ? 6 : 12} sx={{ mt: 3 }}>
           <Item>
             <EventDailySingleTable
               handleChangeSort={_handleChangeSort}
@@ -84,7 +91,7 @@ function EventDailyTable() {
         </Grid>
         {isCompare && (
           <>
-            <Grid item xs={6}>
+            <Grid item xs={6} sx={{ mt: 3 }}>
               <Item>
                 <EventDailySingleTable
                   handleChangeSort={_handleChangeSort}
