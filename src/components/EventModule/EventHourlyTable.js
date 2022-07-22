@@ -12,7 +12,7 @@ import SearchBar from '../SearchBar';
 
 import EventHourlySingleTable from './EventHourlySingleTable';
 import { flipSortDirection } from '../constants';
-
+import { dateComparingFormat } from '../constants';
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
   ...theme.typography.body2,
@@ -32,12 +32,25 @@ function EventHourlyTable() {
     setSortEventHourlyDirection,
     searchEventHourlyTerm,
     setSearchEventHourlyTerm,
+    startFirstDate,
+    startComparedDate,
   } = useContext(EventContext);
 
   function _handleChangeSort(col) {
     setEventHourlySortCol(col);
     setSortEventHourlyDirection(flipSortDirection(sortEventHourlyDirection));
   }
+  const startDate = dateComparingFormat(startFirstDate.firstStart);
+  const endDate = dateComparingFormat(startFirstDate.firstEnd);
+  //
+  const startCompareDateFormat = dateComparingFormat(
+    startComparedDate.secondStart
+  );
+
+  const endCompareDateFormat = dateComparingFormat(startComparedDate.secondEnd);
+
+  const title = `${startDate} - ${endDate}`;
+  const compareTitle = `${startCompareDateFormat} - ${endCompareDateFormat}`;
 
   return (
     <>
@@ -63,6 +76,7 @@ function EventHourlyTable() {
             <EventHourlySingleTable
               handleChangeSort={_handleChangeSort}
               data={finalDisplayEventHourlyDefault}
+              title={title}
             />
           </Item>
         </Grid>
@@ -73,6 +87,7 @@ function EventHourlyTable() {
                 <EventHourlySingleTable
                   handleChangeSort={_handleChangeSort}
                   data={finalDisplayEventHourlyComparing}
+                  title={compareTitle}
                 />
               </Item>
             </Grid>

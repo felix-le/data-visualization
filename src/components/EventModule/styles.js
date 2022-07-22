@@ -2,6 +2,11 @@ import { makeStyles } from '@mui/styles';
 
 const useStyles = makeStyles((theme) => ({
   root: {},
+  tableTitle: {
+    color: theme.palette.primary.contrastText,
+    textAlign: 'center',
+    marginBottom: '1rem',
+  },
   comparedWrapper: {
     display: 'flex',
     justifyContent: 'center',

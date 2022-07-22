@@ -5,7 +5,7 @@ import { styled } from '@mui/material/styles';
 
 // Context
 import { StatsContext } from './StatsModuleWithContext';
-
+import { dateComparingFormat } from '../constants';
 // components
 import Box from '@mui/material/Box';
 import SearchBar from '../SearchBar';
@@ -36,6 +36,8 @@ function StatsDailyTable() {
     finalDisplayStatsDailyCompering,
     statsDailySearch,
     setStatsDailySearch,
+    startFirstDate,
+    startComparedDate,
   } = useContext(StatsContext);
 
   const { sortStatsDailyCol, sortStatsDailyDirection } =
@@ -49,6 +51,16 @@ function StatsDailyTable() {
     });
   }
 
+  const startDate = dateComparingFormat(startFirstDate.firstStart);
+  const endDate = dateComparingFormat(startFirstDate.firstEnd);
+  //
+  const startCompareDateFormat = dateComparingFormat(
+    startComparedDate.secondStart
+  );
+  const endCompareDateFormat = dateComparingFormat(startComparedDate.secondEnd);
+
+  const title = `${startDate} - ${endDate}`;
+  const compareTitle = `${startCompareDateFormat} - ${endCompareDateFormat}`;
   return (
     <>
       {' '}
@@ -77,6 +89,7 @@ function StatsDailyTable() {
               currentSortCol={sortStatsDailyCol}
               currentSortDir={sortStatsDailyDirection}
               categories={STATS_DAILY_SORTING_CATEGORIES}
+              title={title}
             />
           </Item>
         </Grid>
@@ -91,6 +104,7 @@ function StatsDailyTable() {
                   currentSortCol={sortStatsDailyCol}
                   currentSortDir={sortStatsDailyDirection}
                   categories={STATS_DAILY_SORTING_CATEGORIES}
+                  title={compareTitle}
                 />
               </Item>
             </Grid>

@@ -6,6 +6,7 @@ import {
   TableHead,
   TableRow,
   TableContainer,
+  Typography,
 } from '@mui/material';
 import { EventContext } from './EventModuleWithContext';
 import { EVENT_HOURLY_SORTING_CATEGORIES, SORT_DIRECTION } from '../constants';
@@ -15,7 +16,7 @@ import { SortAscendingIcon, SortDescendingIcon } from '@heroicons/react/solid';
 import usePaginationParams from '../../hooks/usePagination';
 import Pagination from '../Pagination';
 
-function EventHourlySingleTable({ data, handleChangeSort }) {
+function EventHourlySingleTable({ data, handleChangeSort, title }) {
   const styles = useStyles();
   const {
     // Compare data
@@ -28,6 +29,9 @@ function EventHourlySingleTable({ data, handleChangeSort }) {
 
   return (
     <TableContainer className={styles.tableContainer}>
+      <Typography variant='h3' className={styles.tableTitle}>
+        {title}
+      </Typography>
       <Table aria-label='sticky table' stickyHeader className={styles.table}>
         <TableHead className={styles.tableHead}>
           <TableRow>

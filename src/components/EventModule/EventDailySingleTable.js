@@ -6,7 +6,9 @@ import {
   TableHead,
   TableRow,
   TableContainer,
+  Typography,
 } from '@mui/material';
+
 import { EventContext } from './EventModuleWithContext';
 import { EVENT_DAILY_SORTING_CATEGORIES, SORT_DIRECTION } from '../constants';
 import { useStyles } from './styles';
@@ -15,7 +17,7 @@ import { SortAscendingIcon, SortDescendingIcon } from '@heroicons/react/solid';
 import usePaginationParams from '../../hooks/usePagination';
 import Pagination from '../Pagination';
 
-function EventDailySingleTable({ data, handleChangeSort }) {
+function EventDailySingleTable({ data, handleChangeSort, title }) {
   const styles = useStyles();
   const {
     // Compare data
@@ -28,6 +30,9 @@ function EventDailySingleTable({ data, handleChangeSort }) {
 
   return (
     <TableContainer className={styles.tableContainer}>
+      <Typography variant='h3' className={styles.tableTitle}>
+        {title}
+      </Typography>
       <Table aria-label='sticky table' stickyHeader className={styles.table}>
         <TableHead className={styles.tableHead}>
           <TableRow>

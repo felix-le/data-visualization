@@ -6,6 +6,7 @@ import {
   TableRow,
   TableContainer,
   TableCell,
+  Typography,
 } from '@mui/material';
 import { SortAscendingIcon, SortDescendingIcon } from '@heroicons/react/solid';
 import { SORT_DIRECTION } from '../constants';
@@ -21,6 +22,7 @@ function TableComponent({
   currentSortCol,
   currentSortDir,
   categories,
+  title,
 }) {
   const styles = useStyles();
 
@@ -30,6 +32,9 @@ function TableComponent({
 
   return (
     <TableContainer className={styles.tableContainer}>
+      <Typography variant='h3' className={styles.tableTitle}>
+        {title}
+      </Typography>
       <Table aria-label='sticky table' stickyHeader className={styles.table}>
         <TableHead className={styles.tableHead}>
           <TableRow>

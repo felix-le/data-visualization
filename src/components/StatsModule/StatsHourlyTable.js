@@ -9,7 +9,7 @@ import { StatsContext } from './StatsModuleWithContext';
 // components
 import Box from '@mui/material/Box';
 import SearchBar from '../SearchBar';
-
+import { dateComparingFormat } from '../constants';
 import Table from './Table';
 
 import {
@@ -36,6 +36,8 @@ function StatsDailyTable() {
     statsHourlySearch,
     setStatsHourlySearch,
     finalDisplayStatsHourlyCompering,
+    startFirstDate,
+    startComparedDate,
   } = useContext(StatsContext);
 
   const { sortStatsHourlyCol, sortStatsHourlyDirection } =
@@ -48,7 +50,16 @@ function StatsDailyTable() {
       sortStatsHourlyDirection: flipSortDirection(sortStatsHourlyDirection),
     });
   }
+  const startDate = dateComparingFormat(startFirstDate.firstStart);
+  const endDate = dateComparingFormat(startFirstDate.firstEnd);
+  //
+  const startCompareDateFormat = dateComparingFormat(
+    startComparedDate.secondStart
+  );
+  const endCompareDateFormat = dateComparingFormat(startComparedDate.secondEnd);
 
+  const title = `${startDate} - ${endDate}`;
+  const compareTitle = `${startCompareDateFormat} - ${endCompareDateFormat}`;
   return (
     <>
       {' '}
@@ -77,6 +88,7 @@ function StatsDailyTable() {
               currentSortCol={sortStatsHourlyCol}
               currentSortDir={sortStatsHourlyDirection}
               categories={STATS_HOURLY_SORTING_CATEGORIES}
+              title={title}
             />
           </Item>
         </Grid>
@@ -91,6 +103,7 @@ function StatsDailyTable() {
                   currentSortCol={sortStatsHourlyCol}
                   currentSortDir={sortStatsHourlyDirection}
                   categories={STATS_HOURLY_SORTING_CATEGORIES}
+                  title={compareTitle}
                 />
               </Item>
             </Grid>

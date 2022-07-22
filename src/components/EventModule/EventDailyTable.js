@@ -9,7 +9,7 @@ import { EventContext } from './EventModuleWithContext';
 // components
 import Box from '@mui/material/Box';
 import SearchBar from '../SearchBar';
-
+import { dateComparingFormat } from '../constants';
 import EventDailySingleTable from './EventDailySingleTable';
 import { flipSortDirection } from '../constants';
 
@@ -32,12 +32,27 @@ function EventDailyTable() {
     sortEventDailyDirection,
     setSortEventDailyDirection,
     finalDisplayEventDailyComparing,
+
+    startFirstDate,
+    startComparedDate,
   } = useContext(EventContext);
 
   function _handleChangeSort(col) {
     setEventDailySortCol(col);
     setSortEventDailyDirection(flipSortDirection(sortEventDailyDirection));
   }
+
+  const startDate = dateComparingFormat(startFirstDate.firstStart);
+  const endDate = dateComparingFormat(startFirstDate.firstEnd);
+  //
+  const startCompareDateFormat = dateComparingFormat(
+    startComparedDate.secondStart
+  );
+
+  const endCompareDateFormat = dateComparingFormat(startComparedDate.secondEnd);
+
+  const title = `${startDate} - ${endDate}`;
+  const compareTitle = `${startCompareDateFormat} - ${endCompareDateFormat}`;
 
   return (
     <>
@@ -63,6 +78,7 @@ function EventDailyTable() {
             <EventDailySingleTable
               handleChangeSort={_handleChangeSort}
               data={finalDisplayEventDailyDefault}
+              title={title}
             />
           </Item>
         </Grid>
@@ -73,6 +89,7 @@ function EventDailyTable() {
                 <EventDailySingleTable
                   handleChangeSort={_handleChangeSort}
                   data={finalDisplayEventDailyComparing}
+                  title={compareTitle}
                 />
               </Item>
             </Grid>
